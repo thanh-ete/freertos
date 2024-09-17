@@ -1,0 +1,16 @@
+16:28:25 **** Build of configuration Debug for project 004Semaphore_Countin ****
+make -j8 all 
+arm-none-eabi-gcc -o "004Semaphore_Countin.elf" @"objects.list"   -mcpu=cortex-m4 -T"D:\freertos\rtos_workspace\004Semaphore_Countin\STM32F407VGTX_FLASH.ld" --specs=nosys.specs -Wl,-Map="004Semaphore_Countin.map" -Wl,--gc-sections -static --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
+Finished building target: 004Semaphore_Countin.elf
+ 
+arm-none-eabi-size  004Semaphore_Countin.elf 
+arm-none-eabi-objdump -h -S 004Semaphore_Countin.elf  > "004Semaphore_Countin.list"
+   text	   data	    bss	    dec	    hex	filename
+  24380	     28	  18036	  42444	   a5cc	004Semaphore_Countin.elf
+Finished building: default.size.stdout
+ 
+Finished building: 004Semaphore_Countin.list
+ 
+
+16:28:26 Build Finished. 0 errors, 0 warnings. (took 1s.281ms)
+
