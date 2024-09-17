@@ -1,13 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <section name="Workbench">
 	<section name="org.eclipse.ui.texteditor.FindReplaceDialog">
-		<item key="selection" value="Sender2_Task"/>
+		<item key="selection" value="periodicTimerHandle"/>
 		<item key="wrap" value="true"/>
 		<item key="casesensitive" value="false"/>
 		<item key="wholeword" value="false"/>
 		<item key="incremental" value="false"/>
 		<item key="isRegEx" value="false"/>
 		<list key="findhistory">
+			<item value="periodiTimerHandle"/>
 			<item value="Sender2_Task"/>
 			<item value="tohuart"/>
 			<item value="to"/>
@@ -15,6 +16,7 @@
 			<item value=""/>
 		</list>
 		<list key="replacehistory">
+			<item value="periodicTimerHandle"/>
 		</list>
 	</section>
 	<section name="org.eclipse.ui.texteditor.FindReplaceDialog_dialogBounds">
