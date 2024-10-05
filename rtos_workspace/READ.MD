@@ -1,5 +1,5 @@
 ### Semaphore
 
-[binary example](https://thanhdeptrai.notion.site/freertos-115f363afe39806e9cbdf60cab2b4ee2?pvs=4)
+[binary example to Notion](https://thanhdeptrai.notion.site/semaphore-115f363afe3980bcb843cc86f6f23534?pvs=4)
 
 ### Mutex

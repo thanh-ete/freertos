@@ -38,34 +38,34 @@ $(wildcard ../makefile.init) \
 $(wildcard ../makefile.targets) \
 
 
-BUILD_ARTIFACT_NAME := freertos_binary_semaphore
+BUILD_ARTIFACT_NAME := 003Semaphore_Binary
 BUILD_ARTIFACT_EXTENSION := elf
 BUILD_ARTIFACT_PREFIX :=
 BUILD_ARTIFACT := $(BUILD_ARTIFACT_PREFIX)$(BUILD_ARTIFACT_NAME)$(if $(BUILD_ARTIFACT_EXTENSION),.$(BUILD_ARTIFACT_EXTENSION),)
 
 # Add inputs and outputs from these tool invocations to the build variables 
 EXECUTABLES += \
-freertos_binary_semaphore.elf \
+003Semaphore_Binary.elf \
 
 MAP_FILES += \
-freertos_binary_semaphore.map \
+003Semaphore_Binary.map \
 
 SIZE_OUTPUT += \
 default.size.stdout \
 
 OBJDUMP_LIST += \
-freertos_binary_semaphore.list \
+003Semaphore_Binary.list \
 
 
 # All Target
 all: main-build
 
 # Main-build Target
-main-build: freertos_binary_semaphore.elf secondary-outputs
+main-build: 003Semaphore_Binary.elf secondary-outputs
 
 # Tool invocations
-freertos_binary_semaphore.elf freertos_binary_semaphore.map: $(OBJS) $(USER_OBJS) D:\freertos\rtos_workspace\freertos_binary_semaphore\STM32F407VGTX_FLASH.ld makefile objects.list $(OPTIONAL_TOOL_DEPS)
-	arm-none-eabi-gcc -o "freertos_binary_semaphore.elf" @"objects.list" $(USER_OBJS) $(LIBS) -mcpu=cortex-m4 -T"D:\freertos\rtos_workspace\freertos_binary_semaphore\STM32F407VGTX_FLASH.ld" --specs=nosys.specs -Wl,-Map="freertos_binary_semaphore.map" -Wl,--gc-sections -static --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
+003Semaphore_Binary.elf 003Semaphore_Binary.map: $(OBJS) $(USER_OBJS) D:\freertos\rtos_workspace\003Semaphore_Binary\STM32F407VGTX_FLASH.ld makefile objects.list $(OPTIONAL_TOOL_DEPS)
+	arm-none-eabi-gcc -o "003Semaphore_Binary.elf" @"objects.list" $(USER_OBJS) $(LIBS) -mcpu=cortex-m4 -T"D:\freertos\rtos_workspace\003Semaphore_Binary\STM32F407VGTX_FLASH.ld" --specs=nosys.specs -Wl,-Map="003Semaphore_Binary.map" -Wl,--gc-sections -static --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
 	@echo 'Finished building target: $@'
 	@echo ' '
 
@@ -74,14 +74,14 @@ default.size.stdout: $(EXECUTABLES) makefile objects.list $(OPTIONAL_TOOL_DEPS)
 	@echo 'Finished building: $@'
 	@echo ' '
 
-freertos_binary_semaphore.list: $(EXECUTABLES) makefile objects.list $(OPTIONAL_TOOL_DEPS)
-	arm-none-eabi-objdump -h -S $(EXECUTABLES) > "freertos_binary_semaphore.list"
+003Semaphore_Binary.list: $(EXECUTABLES) makefile objects.list $(OPTIONAL_TOOL_DEPS)
+	arm-none-eabi-objdump -h -S $(EXECUTABLES) > "003Semaphore_Binary.list"
 	@echo 'Finished building: $@'
 	@echo ' '
 
 # Other Targets
 clean:
-	-$(RM) default.size.stdout freertos_binary_semaphore.elf freertos_binary_semaphore.list freertos_binary_semaphore.map
+	-$(RM) 003Semaphore_Binary.elf 003Semaphore_Binary.list 003Semaphore_Binary.map default.size.stdout
 	-@echo ' '
 
 secondary-outputs: $(SIZE_OUTPUT) $(OBJDUMP_LIST)

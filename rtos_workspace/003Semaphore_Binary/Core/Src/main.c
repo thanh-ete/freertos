@@ -309,7 +309,7 @@ void Starthightask(void const * argument)
 	  char *str3 = "Semaphore acquired by High-Task\n";
 	  HAL_UART_Transmit(&huart2, (uint8_t*) str3	, strlen(str3), 100);
 
-	  while(HAL_GPIO_ReadPin(GPIOA, GPIO_PIN_0)); // wait till the pin go low
+	  //while(HAL_GPIO_ReadPin(GPIOA, GPIO_PIN_0)); // wait till the pin go low
 
 	  char *str2 = "Leaving High-Task and releasing semaphore\n\n";
 	  HAL_UART_Transmit(&huart2, (uint8_t*) str2	, strlen(str2), 100);
@@ -342,7 +342,7 @@ void Startlowtask(void const * argument)
 		char *str3 = "Semaphore acquired by Low-Task\n";
 		HAL_UART_Transmit(&huart2, (uint8_t*) str3	, strlen(str3), 100);
 
-
+		while(HAL_GPIO_ReadPin(GPIOA, GPIO_PIN_0));
 		char *str2 = "Leaving Low-Task and releasing semaphore\n\n";
 		HAL_UART_Transmit(&huart2, (uint8_t*) str2	, strlen(str2), 100);
 

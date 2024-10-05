@@ -3,7 +3,7 @@
 ../Core/Src/main.c:210:13:MX_USART2_UART_Init	2
 ../Core/Src/main.c:243:13:MX_GPIO_Init	1
 ../Core/Src/main.c:274:6:Startnormaltask	1
-../Core/Src/main.c:299:6:Starthightask	2
-../Core/Src/main.c:332:6:Startlowtask	1
-../Core/Src/main.c:364:6:HAL_TIM_PeriodElapsedCallback	2
-../Core/Src/main.c:381:6:Error_Handler	1
+../Core/Src/main.c:298:6:Starthightask	1
+../Core/Src/main.c:331:6:Startlowtask	2
+../Core/Src/main.c:363:6:HAL_TIM_PeriodElapsedCallback	2
+../Core/Src/main.c:380:6:Error_Handler	1
