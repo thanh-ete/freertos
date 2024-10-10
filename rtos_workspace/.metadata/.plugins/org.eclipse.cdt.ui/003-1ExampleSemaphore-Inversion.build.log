@@ -1,0 +1,10 @@
+15:50:03 **** Incremental Build of configuration Debug for project 003-1ExampleSemaphore-Inversion ****
+make -j8 all 
+arm-none-eabi-size  003-1ExampleSemaphore-Inversion.elf 
+   text	   data	    bss	    dec	    hex	filename
+  19376	     16	  18024	  37416	   9228	003-1ExampleSemaphore-Inversion.elf
+Finished building: default.size.stdout
+ 
+
+15:50:03 Build Finished. 0 errors, 0 warnings. (took 304ms)
+
