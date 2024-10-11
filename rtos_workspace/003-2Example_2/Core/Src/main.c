@@ -29,12 +29,13 @@
 #include "semphr.h"
 #include "event_groups.h"
 
+#include "stdio.h"
+#include "string.h"
+
 /* USER CODE END Includes */
 
 /* Private typedef -----------------------------------------------------------*/
 /* USER CODE BEGIN PTD */
-
-/* ------------Binary Semaphore: Tạo semaphore, Trao semaphore và Nhận semaphore. /*
 
 /* USER CODE END PTD */
 
@@ -51,7 +52,6 @@
 /* Private variables ---------------------------------------------------------*/
 UART_HandleTypeDef huart2;
 
-osThreadId defaultTaskHandle;
 /* USER CODE BEGIN PV */
 
 /* USER CODE END PV */
@@ -60,7 +60,6 @@ osThreadId defaultTaskHandle;
 void SystemClock_Config(void);
 static void MX_GPIO_Init(void);
 static void MX_USART2_UART_Init(void);
-void StartDefaultTask(void const * argument);
 
 /* USER CODE BEGIN PFP */
 
@@ -68,6 +67,14 @@ void StartDefaultTask(void const * argument);
 
 /* Private user code ---------------------------------------------------------*/
 /* USER CODE BEGIN 0 */
+TaskHandle_t TaskHigh_Handler;
+TaskHandle_t TaskLow_Handler;
+
+SemaphoreHandle_t Semaphore_Binary;
+
+void TaskHigh(void* argument);
+void TaskLow(void* argument);
+
 
 /* USER CODE END 0 */
 
@@ -102,38 +109,24 @@ int main(void)
   MX_GPIO_Init();
   MX_USART2_UART_Init();
   /* USER CODE BEGIN 2 */
+  Semaphore_Binary = xSemaphoreCreateBinary();
+
+  	if(Semaphore_Binary == NULL){
+  		HAL_UART_Transmit(&huart2, (uint8_t*)"Unable semaphore\n",17 , 100);
+  	}
+  	else{
+  		HAL_UART_Transmit(&huart2, (uint8_t*)"Semaphore success\n", 18, 100);
+  		xSemaphoreGive(Semaphore_Binary);
+  	}
+
+  	xTaskCreate(TaskHigh, "High-Task", 128, NULL, 1, &TaskHigh_Handler);
+  	xTaskCreate(TaskLow, "Low-Task", 128, NULL, 1, &TaskLow_Handler);
+
+  	vTaskStartScheduler();
 
   /* USER CODE END 2 */
 
-  /* USER CODE BEGIN RTOS_MUTEX */
-  /* add mutexes, ... */
-  /* USER CODE END RTOS_MUTEX */
 
-  /* USER CODE BEGIN RTOS_SEMAPHORES */
-  /* add semaphores, ... */
-  /* USER CODE END RTOS_SEMAPHORES */
-
-  /* USER CODE BEGIN RTOS_TIMERS */
-  /* start timers, add new ones, ... */
-  /* USER CODE END RTOS_TIMERS */
-
-  /* USER CODE BEGIN RTOS_QUEUES */
-  /* add queues, ... */
-  /* USER CODE END RTOS_QUEUES */
-
-  /* Create the thread(s) */
-  /* definition and creation of defaultTask */
-  osThreadDef(defaultTask, StartDefaultTask, osPriorityNormal, 0, 128);
-  defaultTaskHandle = osThreadCreate(osThread(defaultTask), NULL);
-
-  /* USER CODE BEGIN RTOS_THREADS */
-  /* add threads, ... */
-  /* USER CODE END RTOS_THREADS */
-
-  /* Start scheduler */
-  osKernelStart();
-
-  /* We should never get here as control is now taken by the scheduler */
 
   /* Infinite loop */
   /* USER CODE BEGIN WHILE */
@@ -243,26 +236,45 @@ static void MX_GPIO_Init(void)
 }
 
 /* USER CODE BEGIN 4 */
+void TaskHigh(void* argument){
+	while(1){
+		char *str = "Enter High Task\n";
+		HAL_UART_Transmit(&huart2, (uint8_t*)str, strlen(str), 100);
 
+		xSemaphoreTake(Semaphore_Binary, portMAX_DELAY);
+
+		char *str2 = "Semaphore acquired by High_Task\n";
+		HAL_UART_Transmit(&huart2, (uint8_t*)str2, strlen(str2), 100);
+
+
+		char *str1 = "Leave and release High Task\n\n";
+		HAL_UART_Transmit(&huart2, (uint8_t*)str1, strlen(str1), 100);
+		xSemaphoreGive(Semaphore_Binary);
+		vTaskDelay(1000);
+	}
+}
+
+void TaskLow(void *argument){
+	while(1){
+		char *str = "Enter Low Task\n";
+		HAL_UART_Transmit(&huart2, (uint8_t*)str, strlen(str), 100);
+
+		char *str2 = "Semaphore acquired by Low_Task\n";
+		HAL_UART_Transmit(&huart2, (uint8_t*)str2, strlen(str2), 100);
+
+
+		xSemaphoreTake(Semaphore_Binary, portMAX_DELAY);
+
+		char *str1 = "Leave and release Low Task\n\n";
+		HAL_UART_Transmit(&huart2, (uint8_t*)str1, strlen(str1), 100);
+		xSemaphoreGive(Semaphore_Binary);
+		vTaskDelay(1000);
+	}
+
+}
 /* USER CODE END 4 */
 
-/* USER CODE BEGIN Header_StartDefaultTask */
-/**
-  * @brief  Function implementing the defaultTask thread.
-  * @param  argument: Not used
-  * @retval None
-  */
-/* USER CODE END Header_StartDefaultTask */
-void StartDefaultTask(void const * argument)
-{
-  /* USER CODE BEGIN 5 */
-  /* Infinite loop */
-  for(;;)
-  {
-    osDelay(1);
-  }
-  /* USER CODE END 5 */
-}
+
 
 /**
   * @brief  Period elapsed callback in non blocking mode
