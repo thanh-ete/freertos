@@ -7,19 +7,19 @@ Idx Name          Size      VMA       LMA       File off  Algn
                   CONTENTS, ALLOC, LOAD, READONLY, DATA
   1 .text         00004820  08000190  08000190  00001190  2**4
                   CONTENTS, ALLOC, LOAD, READONLY, CODE
-  2 .rodata       00000100  080049b0  080049b0  000059b0  2**2
+  2 .rodata       000000fc  080049b0  080049b0  000059b0  2**2
                   CONTENTS, ALLOC, LOAD, READONLY, DATA
-  3 .ARM.extab    00000000  08004ab0  08004ab0  00006010  2**0
+  3 .ARM.extab    00000000  08004aac  08004aac  00006010  2**0
                   CONTENTS
-  4 .ARM          00000008  08004ab0  08004ab0  00005ab0  2**2
+  4 .ARM          00000008  08004aac  08004aac  00005aac  2**2
                   CONTENTS, ALLOC, LOAD, READONLY, DATA
-  5 .preinit_array 00000000  08004ab8  08004ab8  00006010  2**0
+  5 .preinit_array 00000000  08004ab4  08004ab4  00006010  2**0
                   CONTENTS, ALLOC, LOAD, DATA
-  6 .init_array   00000004  08004ab8  08004ab8  00005ab8  2**2
+  6 .init_array   00000004  08004ab4  08004ab4  00005ab4  2**2
                   CONTENTS, ALLOC, LOAD, READONLY, DATA
-  7 .fini_array   00000004  08004abc  08004abc  00005abc  2**2
+  7 .fini_array   00000004  08004ab8  08004ab8  00005ab8  2**2
                   CONTENTS, ALLOC, LOAD, READONLY, DATA
-  8 .data         00000010  20000000  08004ac0  00006000  2**2
+  8 .data         00000010  20000000  08004abc  00006000  2**2
                   CONTENTS, ALLOC, LOAD, DATA
   9 .ccmram       00000000  10000000  10000000  00006010  2**0
                   CONTENTS
@@ -31,7 +31,7 @@ Idx Name          Size      VMA       LMA       File off  Algn
                   CONTENTS, READONLY
  13 .debug_info   00010ad2  00000000  00000000  00006040  2**0
                   CONTENTS, READONLY, DEBUGGING, OCTETS
- 14 .debug_abbrev 000028cb  00000000  00000000  00016b12  2**0
+ 14 .debug_abbrev 000028c9  00000000  00000000  00016b12  2**0
                   CONTENTS, READONLY, DEBUGGING, OCTETS
  15 .debug_aranges 00000f98  00000000  00000000  000193e0  2**3
                   CONTENTS, READONLY, DEBUGGING, OCTETS
@@ -392,23 +392,23 @@ void vApplicationGetIdleTaskMemory( StaticTask_t **ppxIdleTaskTCBBuffer, StackTy
  8000500:	20000080 	.word	0x20000080
 
 08000504 <Send_UART>:
-void Medium_Task(void* argument);
 
+void High_Task(void *argument);
+void Medium_Task(void *argument);
 
-
-void Send_UART (char *str)
+void Send_UART(char *str)
 {
  8000504:	b580      	push	{r7, lr}
  8000506:	b082      	sub	sp, #8
  8000508:	af00      	add	r7, sp, #0
  800050a:	6078      	str	r0, [r7, #4]
-	xSemaphoreTake(SimpleMutex, portMAX_DELAY);
+  xSemaphoreTake(SimpleMutex, portMAX_DELAY);
  800050c:	4b10      	ldr	r3, [pc, #64]	@ (8000550 <Send_UART+0x4c>)
  800050e:	681b      	ldr	r3, [r3, #0]
  8000510:	f04f 31ff 	mov.w	r1, #4294967295
  8000514:	4618      	mov	r0, r3
  8000516:	f002 fbf7 	bl	8002d08 <xQueueSemaphoreTake>
-	HAL_UART_Transmit(&huart2, str, strlen(str), HAL_MAX_DELAY);
+  HAL_UART_Transmit(&huart2, str, strlen(str), HAL_MAX_DELAY);
  800051a:	6878      	ldr	r0, [r7, #4]
  800051c:	f7ff fe58 	bl	80001d0 <strlen>
  8000520:	4603      	mov	r3, r0
@@ -417,10 +417,10 @@ void Send_UART (char *str)
  8000528:	6879      	ldr	r1, [r7, #4]
  800052a:	480a      	ldr	r0, [pc, #40]	@ (8000554 <Send_UART+0x50>)
  800052c:	f001 fd84 	bl	8002038 <HAL_UART_Transmit>
-	HAL_Delay(2000);
+  HAL_Delay(2000);
  8000530:	f44f 60fa 	mov.w	r0, #2000	@ 0x7d0
  8000534:	f000 fb22 	bl	8000b7c <HAL_Delay>
-	xSemaphoreGive(SimpleMutex);
+  xSemaphoreGive(SimpleMutex);
  8000538:	4b05      	ldr	r3, [pc, #20]	@ (8000550 <Send_UART+0x4c>)
  800053a:	6818      	ldr	r0, [r3, #0]
  800053c:	2300      	movs	r3, #0
@@ -438,9 +438,9 @@ void Send_UART (char *str)
 
 08000558 <main>:
 /**
-  * @brief  The application entry point.
-  * @retval int
-  */
+ * @brief  The application entry point.
+ * @retval int
+ */
 int main(void)
 {
  8000558:	b580      	push	{r7, lr}
@@ -470,28 +470,28 @@ int main(void)
   MX_USART2_UART_Init();
  800056a:	f000 f8a5 	bl	80006b8 <MX_USART2_UART_Init>
   /* USER CODE BEGIN 2 */
-SimpleMutex = xSemaphoreCreateMutex();
+  SimpleMutex = xSemaphoreCreateMutex();
  800056e:	2001      	movs	r0, #1
  8000570:	f002 fab0 	bl	8002ad4 <xQueueCreateMutex>
  8000574:	4603      	mov	r3, r0
  8000576:	4a12      	ldr	r2, [pc, #72]	@ (80005c0 <main+0x68>)
  8000578:	6013      	str	r3, [r2, #0]
-if(SimpleMutex != NULL)
+  if (SimpleMutex != NULL)
  800057a:	4b11      	ldr	r3, [pc, #68]	@ (80005c0 <main+0x68>)
  800057c:	681b      	ldr	r3, [r3, #0]
  800057e:	2b00      	cmp	r3, #0
  8000580:	d006      	beq.n	8000590 <main+0x38>
-{
-	HAL_UART_Transmit(&huart2, "Mutex created\n\n", 15, 1000);
+  {
+    HAL_UART_Transmit(&huart2, "Mutex created\n\n", 15, 1000);
  8000582:	f44f 737a 	mov.w	r3, #1000	@ 0x3e8
  8000586:	220f      	movs	r2, #15
  8000588:	490e      	ldr	r1, [pc, #56]	@ (80005c4 <main+0x6c>)
  800058a:	480f      	ldr	r0, [pc, #60]	@ (80005c8 <main+0x70>)
  800058c:	f001 fd54 	bl	8002038 <HAL_UART_Transmit>
-}
+  }
 
-/*----------------Create Task----------------*/
-xTaskCreate(High_Task, "HPT",128, NULL, 3, &HighPT_Handler);
+  /*----------------Create Task----------------*/
+  xTaskCreate(High_Task, "HPT", 128, NULL, 3, &HighPT_Handler);
  8000590:	4b0e      	ldr	r3, [pc, #56]	@ (80005cc <main+0x74>)
  8000592:	9301      	str	r3, [sp, #4]
  8000594:	2303      	movs	r3, #3
@@ -501,10 +501,10 @@ xTaskCreate(High_Task, "HPT",128, NULL, 3, &HighPT_Handler);
  800059c:	490c      	ldr	r1, [pc, #48]	@ (80005d0 <main+0x78>)
  800059e:	480d      	ldr	r0, [pc, #52]	@ (80005d4 <main+0x7c>)
  80005a0:	f002 fe24 	bl	80031ec <xTaskCreate>
-xTaskCreate(Medium_Task, "MPT",128, NULL, 3, &MediumPT_Handler);
+  xTaskCreate(Medium_Task, "MPT", 128, NULL, 2, &MediumPT_Handler);
  80005a4:	4b0c      	ldr	r3, [pc, #48]	@ (80005d8 <main+0x80>)
  80005a6:	9301      	str	r3, [sp, #4]
- 80005a8:	2303      	movs	r3, #3
+ 80005a8:	2302      	movs	r3, #2
  80005aa:	9300      	str	r3, [sp, #0]
  80005ac:	2300      	movs	r3, #0
  80005ae:	2280      	movs	r2, #128	@ 0x80
@@ -512,8 +512,7 @@ xTaskCreate(Medium_Task, "MPT",128, NULL, 3, &MediumPT_Handler);
  80005b2:	480b      	ldr	r0, [pc, #44]	@ (80005e0 <main+0x88>)
  80005b4:	f002 fe1a 	bl	80031ec <xTaskCreate>
 
-
-vTaskStartScheduler();
+  vTaskStartScheduler();
  80005b8:	f002 ff86 	bl	80034c8 <vTaskStartScheduler>
 
   /* We should never get here as control is now taken by the scheduler */
@@ -535,9 +534,9 @@ vTaskStartScheduler();
 
 080005e4 <SystemClock_Config>:
 /**
-  * @brief System Clock Configuration
-  * @retval None
-  */
+ * @brief System Clock Configuration
+ * @retval None
+ */
 void SystemClock_Config(void)
 {
  80005e4:	b580      	push	{r7, lr}
@@ -559,7 +558,7 @@ void SystemClock_Config(void)
  8000606:	611a      	str	r2, [r3, #16]
 
   /** Configure the main internal regulator output voltage
-  */
+   */
   __HAL_RCC_PWR_CLK_ENABLE();
  8000608:	2300      	movs	r3, #0
  800060a:	60bb      	str	r3, [r7, #8]
@@ -588,8 +587,8 @@ void SystemClock_Config(void)
  800063e:	687b      	ldr	r3, [r7, #4]
 
   /** Initializes the RCC Oscillators according to the specified parameters
-  * in the RCC_OscInitTypeDef structure.
-  */
+   * in the RCC_OscInitTypeDef structure.
+   */
   RCC_OscInitStruct.OscillatorType = RCC_OSCILLATORTYPE_HSE;
  8000640:	2301      	movs	r3, #1
  8000642:	623b      	str	r3, [r7, #32]
@@ -627,11 +626,10 @@ void SystemClock_Config(void)
   }
 
   /** Initializes the CPU, AHB and APB buses clocks
-  */
-  RCC_ClkInitStruct.ClockType = RCC_CLOCKTYPE_HCLK|RCC_CLOCKTYPE_SYSCLK
+   */
+  RCC_ClkInitStruct.ClockType = RCC_CLOCKTYPE_HCLK | RCC_CLOCKTYPE_SYSCLK | RCC_CLOCKTYPE_PCLK1 | RCC_CLOCKTYPE_PCLK2;
  8000678:	230f      	movs	r3, #15
  800067a:	60fb      	str	r3, [r7, #12]
-                              |RCC_CLOCKTYPE_PCLK1|RCC_CLOCKTYPE_PCLK2;
   RCC_ClkInitStruct.SYSCLKSource = RCC_SYSCLKSOURCE_PLLCLK;
  800067c:	2302      	movs	r3, #2
  800067e:	613b      	str	r3, [r7, #16]
@@ -667,10 +665,10 @@ void SystemClock_Config(void)
  80006b4:	40007000 	.word	0x40007000
 
 080006b8 <MX_USART2_UART_Init>:
-  * @brief USART2 Initialization Function
-  * @param None
-  * @retval None
-  */
+ * @brief USART2 Initialization Function
+ * @param None
+ * @retval None
+ */
 static void MX_USART2_UART_Init(void)
 {
  80006b8:	b580      	push	{r7, lr}
@@ -725,7 +723,6 @@ static void MX_USART2_UART_Init(void)
   /* USER CODE BEGIN USART2_Init 2 */
 
   /* USER CODE END USART2_Init 2 */
-
 }
  80006fe:	bf00      	nop
  8000700:	bd80      	pop	{r7, pc}
@@ -734,17 +731,17 @@ static void MX_USART2_UART_Init(void)
  8000708:	40004400 	.word	0x40004400
 
 0800070c <MX_GPIO_Init>:
-  * @brief GPIO Initialization Function
-  * @param None
-  * @retval None
-  */
+ * @brief GPIO Initialization Function
+ * @param None
+ * @retval None
+ */
 static void MX_GPIO_Init(void)
 {
  800070c:	b480      	push	{r7}
  800070e:	b083      	sub	sp, #12
  8000710:	af00      	add	r7, sp, #0
-/* USER CODE BEGIN MX_GPIO_Init_1 */
-/* USER CODE END MX_GPIO_Init_1 */
+  /* USER CODE BEGIN MX_GPIO_Init_1 */
+  /* USER CODE END MX_GPIO_Init_1 */
 
   /* GPIO Ports Clock Enable */
   __HAL_RCC_GPIOH_CLK_ENABLE();
@@ -774,8 +771,8 @@ static void MX_GPIO_Init(void)
  8000746:	603b      	str	r3, [r7, #0]
  8000748:	683b      	ldr	r3, [r7, #0]
 
-/* USER CODE BEGIN MX_GPIO_Init_2 */
-/* USER CODE END MX_GPIO_Init_2 */
+  /* USER CODE BEGIN MX_GPIO_Init_2 */
+  /* USER CODE END MX_GPIO_Init_2 */
 }
  800074a:	bf00      	nop
  800074c:	370c      	adds	r7, #12
@@ -788,21 +785,21 @@ static void MX_GPIO_Init(void)
 0800075c <High_Task>:
 
 /* USER CODE BEGIN 4 */
-void High_Task (void *argument)
+void High_Task(void *argument)
 {
  800075c:	b580      	push	{r7, lr}
  800075e:	b086      	sub	sp, #24
  8000760:	af00      	add	r7, sp, #0
  8000762:	6078      	str	r0, [r7, #4]
-	uint8_t *strtosend = "IN HPT--------------------------\n";
+  uint8_t *strtosend = "IN HPT--------------------------\n";
  8000764:	4b12      	ldr	r3, [pc, #72]	@ (80007b0 <High_Task+0x54>)
  8000766:	617b      	str	r3, [r7, #20]
-	while (1)
-	{
-		char *str = "Entered Hight_PT and About to take MUTEX\n";
+  while (1)
+  {
+    char *str = "Enter Hight_PT and About to take MUTEX\n";
  8000768:	4b12      	ldr	r3, [pc, #72]	@ (80007b4 <High_Task+0x58>)
  800076a:	613b      	str	r3, [r7, #16]
-		HAL_UART_Transmit(&huart2, str, strlen (str), HAL_MAX_DELAY);
+    HAL_UART_Transmit(&huart2, str, strlen(str), HAL_MAX_DELAY);
  800076c:	6938      	ldr	r0, [r7, #16]
  800076e:	f7ff fd2f 	bl	80001d0 <strlen>
  8000772:	4603      	mov	r3, r0
@@ -812,14 +809,14 @@ void High_Task (void *argument)
  800077c:	480e      	ldr	r0, [pc, #56]	@ (80007b8 <High_Task+0x5c>)
  800077e:	f001 fc5b 	bl	8002038 <HAL_UART_Transmit>
 
-		Send_UART(strtosend);
+    Send_UART(strtosend);
  8000782:	6978      	ldr	r0, [r7, #20]
  8000784:	f7ff febe 	bl	8000504 <Send_UART>
 
-		char *str2 = "Leaving Hight_PT\n\n";
+    char *str2 = "Leaving Hight_PT\n\n";
  8000788:	4b0c      	ldr	r3, [pc, #48]	@ (80007bc <High_Task+0x60>)
  800078a:	60fb      	str	r3, [r7, #12]
-		HAL_UART_Transmit(&huart2, str2, strlen (str2), HAL_MAX_DELAY);
+    HAL_UART_Transmit(&huart2, str2, strlen(str2), HAL_MAX_DELAY);
  800078c:	68f8      	ldr	r0, [r7, #12]
  800078e:	f7ff fd1f 	bl	80001d0 <strlen>
  8000792:	4603      	mov	r3, r0
@@ -829,38 +826,37 @@ void High_Task (void *argument)
  800079c:	4806      	ldr	r0, [pc, #24]	@ (80007b8 <High_Task+0x5c>)
  800079e:	f001 fc4b 	bl	8002038 <HAL_UART_Transmit>
 
-		vTaskDelay(2000);
+    vTaskDelay(2000);
  80007a2:	f44f 60fa 	mov.w	r0, #2000	@ 0x7d0
  80007a6:	f002 fe59 	bl	800345c <vTaskDelay>
-	{
+  {
  80007aa:	bf00      	nop
  80007ac:	e7dc      	b.n	8000768 <High_Task+0xc>
  80007ae:	bf00      	nop
  80007b0:	080049c8 	.word	0x080049c8
  80007b4:	080049ec 	.word	0x080049ec
  80007b8:	20000280 	.word	0x20000280
- 80007bc:	08004a18 	.word	0x08004a18
+ 80007bc:	08004a14 	.word	0x08004a14
 
 080007c0 <Medium_Task>:
-	}
+  }
 }
 
-
-void Medium_Task (void *argument)
+void Medium_Task(void *argument)
 {
  80007c0:	b580      	push	{r7, lr}
  80007c2:	b086      	sub	sp, #24
  80007c4:	af00      	add	r7, sp, #0
  80007c6:	6078      	str	r0, [r7, #4]
-	uint8_t *strtosend = "IN MPT...........................\n";
+  uint8_t *strtosend = "IN MPT...........................\n";
  80007c8:	4b12      	ldr	r3, [pc, #72]	@ (8000814 <Medium_Task+0x54>)
  80007ca:	617b      	str	r3, [r7, #20]
-	while (1)
-	{
-		char *str = "Entered Medium_PT and About to take MUTEX\n";
+  while (1)
+  {
+    char *str = "Enter Medium_PT and About to take MUTEX\n";
  80007cc:	4b12      	ldr	r3, [pc, #72]	@ (8000818 <Medium_Task+0x58>)
  80007ce:	613b      	str	r3, [r7, #16]
-		HAL_UART_Transmit(&huart2, str, strlen (str), HAL_MAX_DELAY);
+    HAL_UART_Transmit(&huart2, str, strlen(str), HAL_MAX_DELAY);
  80007d0:	6938      	ldr	r0, [r7, #16]
  80007d2:	f7ff fcfd 	bl	80001d0 <strlen>
  80007d6:	4603      	mov	r3, r0
@@ -870,14 +866,14 @@ void Medium_Task (void *argument)
  80007e0:	480e      	ldr	r0, [pc, #56]	@ (800081c <Medium_Task+0x5c>)
  80007e2:	f001 fc29 	bl	8002038 <HAL_UART_Transmit>
 
-		Send_UART(strtosend);
+    Send_UART(strtosend);
  80007e6:	6978      	ldr	r0, [r7, #20]
  80007e8:	f7ff fe8c 	bl	8000504 <Send_UART>
 
-		char *str2 = "Leaving Medium_PT\n\n";
+    char *str2 = "Leaving Medium_PT\n\n";
  80007ec:	4b0c      	ldr	r3, [pc, #48]	@ (8000820 <Medium_Task+0x60>)
  80007ee:	60fb      	str	r3, [r7, #12]
-		HAL_UART_Transmit(&huart2, str2, strlen (str2), HAL_MAX_DELAY);
+    HAL_UART_Transmit(&huart2, str2, strlen(str2), HAL_MAX_DELAY);
  80007f0:	68f8      	ldr	r0, [r7, #12]
  80007f2:	f7ff fced 	bl	80001d0 <strlen>
  80007f6:	4603      	mov	r3, r0
@@ -887,23 +883,23 @@ void Medium_Task (void *argument)
  8000800:	4806      	ldr	r0, [pc, #24]	@ (800081c <Medium_Task+0x5c>)
  8000802:	f001 fc19 	bl	8002038 <HAL_UART_Transmit>
 
-		vTaskDelay(1000);
- 8000806:	f44f 707a 	mov.w	r0, #1000	@ 0x3e8
+    vTaskDelay(1500);
+ 8000806:	f240 50dc 	movw	r0, #1500	@ 0x5dc
  800080a:	f002 fe27 	bl	800345c <vTaskDelay>
-	{
+  {
  800080e:	bf00      	nop
  8000810:	e7dc      	b.n	80007cc <Medium_Task+0xc>
  8000812:	bf00      	nop
- 8000814:	08004a2c 	.word	0x08004a2c
- 8000818:	08004a50 	.word	0x08004a50
+ 8000814:	08004a28 	.word	0x08004a28
+ 8000818:	08004a4c 	.word	0x08004a4c
  800081c:	20000280 	.word	0x20000280
- 8000820:	08004a7c 	.word	0x08004a7c
+ 8000820:	08004a78 	.word	0x08004a78
 
 08000824 <HAL_TIM_PeriodElapsedCallback>:
-  * a global variable "uwTick" used as application time base.
-  * @param  htim : TIM handle
-  * @retval None
-  */
+ * a global variable "uwTick" used as application time base.
+ * @param  htim : TIM handle
+ * @retval None
+ */
 void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim)
 {
  8000824:	b580      	push	{r7, lr}
@@ -913,12 +909,13 @@ void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim)
   /* USER CODE BEGIN Callback 0 */
 
   /* USER CODE END Callback 0 */
-  if (htim->Instance == TIM6) {
+  if (htim->Instance == TIM6)
  800082c:	687b      	ldr	r3, [r7, #4]
  800082e:	681b      	ldr	r3, [r3, #0]
  8000830:	4a04      	ldr	r2, [pc, #16]	@ (8000844 <HAL_TIM_PeriodElapsedCallback+0x20>)
  8000832:	4293      	cmp	r3, r2
  8000834:	d101      	bne.n	800083a <HAL_TIM_PeriodElapsedCallback+0x16>
+  {
     HAL_IncTick();
  8000836:	f000 f981 	bl	8000b3c <HAL_IncTick>
   }
@@ -935,9 +932,9 @@ void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim)
 
 08000848 <Error_Handler>:
 /**
-  * @brief  This function is executed in case of error occurrence.
-  * @retval None
-  */
+ * @brief  This function is executed in case of error occurrence.
+ * @retval None
+ */
 void Error_Handler(void)
 {
  8000848:	b480      	push	{r7}
@@ -1530,7 +1527,7 @@ LoopFillZerobss:
   ldr r1, =_edata
  8000ae4:	20000010 	.word	0x20000010
   ldr r2, =_sidata
- 8000ae8:	08004ac0 	.word	0x08004ac0
+ 8000ae8:	08004abc 	.word	0x08004abc
   ldr r2, =_sbss
  8000aec:	20000010 	.word	0x20000010
   ldr r4, =_ebss
@@ -3750,7 +3747,7 @@ HAL_StatusTypeDef HAL_RCC_ClockConfig(RCC_ClkInitTypeDef  *RCC_ClkInitStruct, ui
  8001766:	bf00      	nop
  8001768:	40023c00 	.word	0x40023c00
  800176c:	40023800 	.word	0x40023800
- 8001770:	08004a98 	.word	0x08004a98
+ 8001770:	08004a94 	.word	0x08004a94
  8001774:	20000000 	.word	0x20000000
  8001778:	20000004 	.word	0x20000004
 
@@ -4054,7 +4051,7 @@ uint32_t HAL_RCC_GetPCLK1Freq(void)
  80019bc:	4618      	mov	r0, r3
  80019be:	bd80      	pop	{r7, pc}
  80019c0:	40023800 	.word	0x40023800
- 80019c4:	08004aa8 	.word	0x08004aa8
+ 80019c4:	08004aa4 	.word	0x08004aa4
 
 080019c8 <HAL_RCC_GetPCLK2Freq>:
   * @note   Each time PCLK2 changes, this function must be called to update the
@@ -4080,7 +4077,7 @@ uint32_t HAL_RCC_GetPCLK2Freq(void)
  80019e4:	4618      	mov	r0, r3
  80019e6:	bd80      	pop	{r7, pc}
  80019e8:	40023800 	.word	0x40023800
- 80019ec:	08004aa8 	.word	0x08004aa8
+ 80019ec:	08004aa4 	.word	0x08004aa4
 
 080019f0 <HAL_RCC_GetClockConfig>:
   * will be configured.
@@ -9011,7 +9008,7 @@ BaseType_t xReturn;
  800356e:	46bd      	mov	sp, r7
  8003570:	bd80      	pop	{r7, pc}
  8003572:	bf00      	nop
- 8003574:	08004a90 	.word	0x08004a90
+ 8003574:	08004a8c 	.word	0x08004a8c
  8003578:	08003b31 	.word	0x08003b31
  800357c:	20000444 	.word	0x20000444
  8003580:	20000440 	.word	0x20000440
@@ -12661,10 +12658,10 @@ uint8_t *puc;
  8004966:	4798      	blx	r3
  8004968:	3601      	adds	r6, #1
  800496a:	e7f2      	b.n	8004952 <__libc_init_array+0x1e>
- 800496c:	08004ab8 	.word	0x08004ab8
- 8004970:	08004ab8 	.word	0x08004ab8
- 8004974:	08004ab8 	.word	0x08004ab8
- 8004978:	08004abc 	.word	0x08004abc
+ 800496c:	08004ab4 	.word	0x08004ab4
+ 8004970:	08004ab4 	.word	0x08004ab4
+ 8004974:	08004ab4 	.word	0x08004ab4
+ 8004978:	08004ab8 	.word	0x08004ab8
 
 0800497c <memcpy>:
  800497c:	440a      	add	r2, r1

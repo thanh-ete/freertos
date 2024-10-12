@@ -29,25 +29,25 @@ Idx Name          Size      VMA       LMA       File off  Algn
                   ALLOC
  12 .ARM.attributes 00000030  00000000  00000000  0000701c  2**0
                   CONTENTS, READONLY
- 13 .debug_info   0001198f  00000000  00000000  0000704c  2**0
+ 13 .debug_info   00011985  00000000  00000000  0000704c  2**0
                   CONTENTS, READONLY, DEBUGGING, OCTETS
- 14 .debug_abbrev 00002afe  00000000  00000000  000189db  2**0
+ 14 .debug_abbrev 00002b12  00000000  00000000  000189d1  2**0
                   CONTENTS, READONLY, DEBUGGING, OCTETS
- 15 .debug_aranges 00001040  00000000  00000000  0001b4e0  2**3
+ 15 .debug_aranges 00001040  00000000  00000000  0001b4e8  2**3
                   CONTENTS, READONLY, DEBUGGING, OCTETS
- 16 .debug_rnglists 00000cad  00000000  00000000  0001c520  2**0
+ 16 .debug_rnglists 00000cad  00000000  00000000  0001c528  2**0
                   CONTENTS, READONLY, DEBUGGING, OCTETS
- 17 .debug_macro  0002272f  00000000  00000000  0001d1cd  2**0
+ 17 .debug_macro  0002272f  00000000  00000000  0001d1d5  2**0
                   CONTENTS, READONLY, DEBUGGING, OCTETS
- 18 .debug_line   00013953  00000000  00000000  0003f8fc  2**0
+ 18 .debug_line   00013939  00000000  00000000  0003f904  2**0
                   CONTENTS, READONLY, DEBUGGING, OCTETS
- 19 .debug_str    000d30b5  00000000  00000000  0005324f  2**0
+ 19 .debug_str    000d30b5  00000000  00000000  0005323d  2**0
                   CONTENTS, READONLY, DEBUGGING, OCTETS
- 20 .comment      00000043  00000000  00000000  00126304  2**0
+ 20 .comment      00000043  00000000  00000000  001262f2  2**0
                   CONTENTS, READONLY
- 21 .debug_frame  00004448  00000000  00000000  00126348  2**2
+ 21 .debug_frame  00004448  00000000  00000000  00126338  2**2
                   CONTENTS, READONLY, DEBUGGING, OCTETS
- 22 .debug_line_str 0000005f  00000000  00000000  0012a790  2**0
+ 22 .debug_line_str 0000005f  00000000  00000000  0012a780  2**0
                   CONTENTS, READONLY, DEBUGGING, OCTETS
 
 Disassembly of section .text:
@@ -393,9 +393,9 @@ void vApplicationGetIdleTaskMemory( StaticTask_t **ppxIdleTaskTCBBuffer, StackTy
 
 08000504 <main>:
 /**
-  * @brief  The application entry point.
-  * @retval int
-  */
+ * @brief  The application entry point.
+ * @retval int
+ */
 int main(void)
 {
  8000504:	b580      	push	{r7, lr}
@@ -431,25 +431,27 @@ int main(void)
  800051c:	4924      	ldr	r1, [pc, #144]	@ (80005b0 <main+0xac>)
  800051e:	4825      	ldr	r0, [pc, #148]	@ (80005b4 <main+0xb0>)
  8000520:	f002 fa03 	bl	800292a <HAL_UART_Receive_IT>
-  CountingSem = xSemaphoreCreateCounting(3,0);
+  CountingSem = xSemaphoreCreateCounting(3, 0);
  8000524:	2100      	movs	r1, #0
  8000526:	2003      	movs	r0, #3
  8000528:	f003 faf2 	bl	8003b10 <xQueueCreateCountingSemaphore>
  800052c:	4603      	mov	r3, r0
  800052e:	4a22      	ldr	r2, [pc, #136]	@ (80005b8 <main+0xb4>)
  8000530:	6013      	str	r3, [r2, #0]
-  if (CountingSem == NULL) HAL_UART_Transmit(&huart2, (uint8_t *) "Unable to Create Semaphore\n\n", 28, 100);
+  if (CountingSem == NULL)
  8000532:	4b21      	ldr	r3, [pc, #132]	@ (80005b8 <main+0xb4>)
  8000534:	681b      	ldr	r3, [r3, #0]
  8000536:	2b00      	cmp	r3, #0
  8000538:	d106      	bne.n	8000548 <main+0x44>
+    HAL_UART_Transmit(&huart2, (uint8_t *)"Unable to Create Semaphore\n\n", 28, 100);
  800053a:	2364      	movs	r3, #100	@ 0x64
  800053c:	221c      	movs	r2, #28
  800053e:	491f      	ldr	r1, [pc, #124]	@ (80005bc <main+0xb8>)
  8000540:	481c      	ldr	r0, [pc, #112]	@ (80005b4 <main+0xb0>)
  8000542:	f002 f967 	bl	8002814 <HAL_UART_Transmit>
  8000546:	e006      	b.n	8000556 <main+0x52>
-  else HAL_UART_Transmit(&huart2, (uint8_t *) "Counting Semaphore created successfully\n\n", 41, 1000);
+  else
+    HAL_UART_Transmit(&huart2, (uint8_t *)"Counting Semaphore created successfully\n\n", 41, 1000);
  8000548:	f44f 737a 	mov.w	r3, #1000	@ 0x3e8
  800054c:	2229      	movs	r2, #41	@ 0x29
  800054e:	491c      	ldr	r1, [pc, #112]	@ (80005c0 <main+0xbc>)
@@ -499,7 +501,7 @@ int main(void)
  80005a0:	4813      	ldr	r0, [pc, #76]	@ (80005f0 <main+0xec>)
  80005a2:	f003 ff0e 	bl	80043c2 <xTaskCreate>
 
-    vTaskStartScheduler();
+  vTaskStartScheduler();
  80005a6:	f004 f879 	bl	800469c <vTaskStartScheduler>
 
   /* We should never get here as control is now taken by the scheduler */
@@ -530,9 +532,9 @@ int main(void)
 
 080005f4 <SystemClock_Config>:
 /**
-  * @brief System Clock Configuration
-  * @retval None
-  */
+ * @brief System Clock Configuration
+ * @retval None
+ */
 void SystemClock_Config(void)
 {
  80005f4:	b580      	push	{r7, lr}
@@ -554,7 +556,7 @@ void SystemClock_Config(void)
  8000616:	611a      	str	r2, [r3, #16]
 
   /** Configure the main internal regulator output voltage
-  */
+   */
   __HAL_RCC_PWR_CLK_ENABLE();
  8000618:	2300      	movs	r3, #0
  800061a:	60bb      	str	r3, [r7, #8]
@@ -583,8 +585,8 @@ void SystemClock_Config(void)
  800064e:	687b      	ldr	r3, [r7, #4]
 
   /** Initializes the RCC Oscillators according to the specified parameters
-  * in the RCC_OscInitTypeDef structure.
-  */
+   * in the RCC_OscInitTypeDef structure.
+   */
   RCC_OscInitStruct.OscillatorType = RCC_OSCILLATORTYPE_HSI;
  8000650:	2302      	movs	r3, #2
  8000652:	623b      	str	r3, [r7, #32]
@@ -625,11 +627,10 @@ void SystemClock_Config(void)
   }
 
   /** Initializes the CPU, AHB and APB buses clocks
-  */
-  RCC_ClkInitStruct.ClockType = RCC_CLOCKTYPE_HCLK|RCC_CLOCKTYPE_SYSCLK
+   */
+  RCC_ClkInitStruct.ClockType = RCC_CLOCKTYPE_HCLK | RCC_CLOCKTYPE_SYSCLK | RCC_CLOCKTYPE_PCLK1 | RCC_CLOCKTYPE_PCLK2;
  8000688:	230f      	movs	r3, #15
  800068a:	60fb      	str	r3, [r7, #12]
-                              |RCC_CLOCKTYPE_PCLK1|RCC_CLOCKTYPE_PCLK2;
   RCC_ClkInitStruct.SYSCLKSource = RCC_SYSCLKSOURCE_PLLCLK;
  800068c:	2302      	movs	r3, #2
  800068e:	613b      	str	r3, [r7, #16]
@@ -665,10 +666,10 @@ void SystemClock_Config(void)
  80006c4:	40007000 	.word	0x40007000
 
 080006c8 <MX_USART2_UART_Init>:
-  * @brief USART2 Initialization Function
-  * @param None
-  * @retval None
-  */
+ * @brief USART2 Initialization Function
+ * @param None
+ * @retval None
+ */
 static void MX_USART2_UART_Init(void)
 {
  80006c8:	b580      	push	{r7, lr}
@@ -723,7 +724,6 @@ static void MX_USART2_UART_Init(void)
   /* USER CODE BEGIN USART2_Init 2 */
 
   /* USER CODE END USART2_Init 2 */
-
 }
  800070e:	bf00      	nop
  8000710:	bd80      	pop	{r7, pc}
@@ -732,17 +732,17 @@ static void MX_USART2_UART_Init(void)
  8000718:	40004400 	.word	0x40004400
 
 0800071c <MX_GPIO_Init>:
-  * @brief GPIO Initialization Function
-  * @param None
-  * @retval None
-  */
+ * @brief GPIO Initialization Function
+ * @param None
+ * @retval None
+ */
 static void MX_GPIO_Init(void)
 {
  800071c:	b480      	push	{r7}
  800071e:	b083      	sub	sp, #12
  8000720:	af00      	add	r7, sp, #0
-/* USER CODE BEGIN MX_GPIO_Init_1 */
-/* USER CODE END MX_GPIO_Init_1 */
+  /* USER CODE BEGIN MX_GPIO_Init_1 */
+  /* USER CODE END MX_GPIO_Init_1 */
 
   /* GPIO Ports Clock Enable */
   __HAL_RCC_GPIOH_CLK_ENABLE();
@@ -772,8 +772,8 @@ static void MX_GPIO_Init(void)
  8000756:	603b      	str	r3, [r7, #0]
  8000758:	683b      	ldr	r3, [r7, #0]
 
-/* USER CODE BEGIN MX_GPIO_Init_2 */
-/* USER CODE END MX_GPIO_Init_2 */
+  /* USER CODE BEGIN MX_GPIO_Init_2 */
+  /* USER CODE END MX_GPIO_Init_2 */
 }
  800075a:	bf00      	nop
  800075c:	370c      	adds	r7, #12
@@ -788,33 +788,32 @@ static void MX_GPIO_Init(void)
 /* USER CODE BEGIN 4 */
 
 // High Priority
-void HPT_Task (void *pvParameters)
+void HPT_Task(void *pvParameters)
 {
  800076c:	b5f0      	push	{r4, r5, r6, r7, lr}
  800076e:	b0ad      	sub	sp, #180	@ 0xb4
  8000770:	af00      	add	r7, sp, #0
  8000772:	6078      	str	r0, [r7, #4]
-	char sresource[3];
-	int semcount = 0;
+  char sresource[3];
+  int semcount = 0;
  8000774:	2300      	movs	r3, #0
  8000776:	f8c7 30ac 	str.w	r3, [r7, #172]	@ 0xac
-	char ssemcount[2];
-	// "give" 3 semaphores at the begining...
-	xSemaphoreGive(CountingSem);
+  char ssemcount[2];
+  xSemaphoreGive(CountingSem);
  800077a:	4b6d      	ldr	r3, [pc, #436]	@ (8000930 <HPT_Task+0x1c4>)
  800077c:	6818      	ldr	r0, [r3, #0]
  800077e:	2300      	movs	r3, #0
  8000780:	2200      	movs	r2, #0
  8000782:	2100      	movs	r1, #0
  8000784:	f003 f9fa 	bl	8003b7c <xQueueGenericSend>
-	xSemaphoreGive(CountingSem);
+  xSemaphoreGive(CountingSem);
  8000788:	4b69      	ldr	r3, [pc, #420]	@ (8000930 <HPT_Task+0x1c4>)
  800078a:	6818      	ldr	r0, [r3, #0]
  800078c:	2300      	movs	r3, #0
  800078e:	2200      	movs	r2, #0
  8000790:	2100      	movs	r1, #0
  8000792:	f003 f9f3 	bl	8003b7c <xQueueGenericSend>
-	xSemaphoreGive(CountingSem);
+  xSemaphoreGive(CountingSem);
  8000796:	4b66      	ldr	r3, [pc, #408]	@ (8000930 <HPT_Task+0x1c4>)
  8000798:	6818      	ldr	r0, [r3, #0]
  800079a:	2300      	movs	r3, #0
@@ -822,10 +821,10 @@ void HPT_Task (void *pvParameters)
  800079e:	2100      	movs	r1, #0
  80007a0:	f003 f9ec 	bl	8003b7c <xQueueGenericSend>
 
-	while(1)
-	{
-		char str[150];
-		strcpy(str, "Entered HPT Task\n About to ACQUIRE the Semaphore\n ");
+  while (1)
+  {
+    char str[150];
+    strcpy(str, "Entered HPT Task\n About to ACQUIRE the Semaphore\n ");
  80007a4:	f107 030c 	add.w	r3, r7, #12
  80007a8:	4a62      	ldr	r2, [pc, #392]	@ (8000934 <HPT_Task+0x1c8>)
  80007aa:	461c      	mov	r4, r3
@@ -842,20 +841,20 @@ void HPT_Task (void *pvParameters)
  80007c0:	3402      	adds	r4, #2
  80007c2:	0c1b      	lsrs	r3, r3, #16
  80007c4:	7023      	strb	r3, [r4, #0]
-		semcount = uxSemaphoreGetCount(CountingSem);
+    semcount = uxSemaphoreGetCount(CountingSem);
  80007c6:	4b5a      	ldr	r3, [pc, #360]	@ (8000930 <HPT_Task+0x1c4>)
  80007c8:	681b      	ldr	r3, [r3, #0]
  80007ca:	4618      	mov	r0, r3
  80007cc:	f003 fc78 	bl	80040c0 <uxQueueMessagesWaiting>
  80007d0:	4603      	mov	r3, r0
  80007d2:	f8c7 30ac 	str.w	r3, [r7, #172]	@ 0xac
-		itoa (semcount, ssemcount, 10);
+    itoa(semcount, ssemcount, 10);
  80007d6:	f107 03a4 	add.w	r3, r7, #164	@ 0xa4
  80007da:	220a      	movs	r2, #10
  80007dc:	4619      	mov	r1, r3
  80007de:	f8d7 00ac 	ldr.w	r0, [r7, #172]	@ 0xac
  80007e2:	f005 f9e1 	bl	8005ba8 <itoa>
-		strcat (str, "Tokens available are: ");
+    strcat(str, "Tokens available are: ");
  80007e6:	f107 030c 	add.w	r3, r7, #12
  80007ea:	4618      	mov	r0, r3
  80007ec:	f7ff fcf0 	bl	80001d0 <strlen>
@@ -878,13 +877,13 @@ void HPT_Task (void *pvParameters)
  8000812:	82a3      	strh	r3, [r4, #20]
  8000814:	4613      	mov	r3, r2
  8000816:	75a3      	strb	r3, [r4, #22]
-		strcat (str, ssemcount);
+    strcat(str, ssemcount);
  8000818:	f107 02a4 	add.w	r2, r7, #164	@ 0xa4
  800081c:	f107 030c 	add.w	r3, r7, #12
  8000820:	4611      	mov	r1, r2
  8000822:	4618      	mov	r0, r3
  8000824:	f005 fa0c 	bl	8005c40 <strcat>
-		strcat (str, "\n\n");
+    strcat(str, "\n\n");
  8000828:	f107 030c 	add.w	r3, r7, #12
  800082c:	4618      	mov	r0, r3
  800082e:	f7ff fccf 	bl	80001d0 <strlen>
@@ -897,7 +896,7 @@ void HPT_Task (void *pvParameters)
  8000840:	7892      	ldrb	r2, [r2, #2]
  8000842:	8019      	strh	r1, [r3, #0]
  8000844:	709a      	strb	r2, [r3, #2]
-		HAL_UART_Transmit(&huart2, (uint8_t *)str, strlen (str), HAL_MAX_DELAY);
+    HAL_UART_Transmit(&huart2, (uint8_t *)str, strlen(str), HAL_MAX_DELAY);
  8000846:	f107 030c 	add.w	r3, r7, #12
  800084a:	4618      	mov	r0, r3
  800084c:	f7ff fcc0 	bl	80001d0 <strlen>
@@ -908,14 +907,14 @@ void HPT_Task (void *pvParameters)
  800085c:	4838      	ldr	r0, [pc, #224]	@ (8000940 <HPT_Task+0x1d4>)
  800085e:	f001 ffd9 	bl	8002814 <HAL_UART_Transmit>
 
-		xSemaphoreTake(CountingSem, portMAX_DELAY);
+    xSemaphoreTake(CountingSem, portMAX_DELAY);
  8000862:	4b33      	ldr	r3, [pc, #204]	@ (8000930 <HPT_Task+0x1c4>)
  8000864:	681b      	ldr	r3, [r3, #0]
  8000866:	f04f 31ff 	mov.w	r1, #4294967295
  800086a:	4618      	mov	r0, r3
  800086c:	f003 fb18 	bl	8003ea0 <xQueueSemaphoreTake>
 
-		itoa (resource[indx], sresource, 10);
+    itoa(resource[indx], sresource, 10);
  8000870:	4b34      	ldr	r3, [pc, #208]	@ (8000944 <HPT_Task+0x1d8>)
  8000872:	681b      	ldr	r3, [r3, #0]
  8000874:	4a34      	ldr	r2, [pc, #208]	@ (8000948 <HPT_Task+0x1dc>)
@@ -924,7 +923,7 @@ void HPT_Task (void *pvParameters)
  800087e:	220a      	movs	r2, #10
  8000880:	4618      	mov	r0, r3
  8000882:	f005 f991 	bl	8005ba8 <itoa>
-		strcpy (str, "Leaving HPT Task\n Data ACCESSED is:: ");
+    strcpy(str, "Leaving HPT Task\n Data ACCESSED is:: ");
  8000886:	f107 030c 	add.w	r3, r7, #12
  800088a:	4a30      	ldr	r2, [pc, #192]	@ (800094c <HPT_Task+0x1e0>)
  800088c:	461c      	mov	r4, r3
@@ -937,13 +936,13 @@ void HPT_Task (void *pvParameters)
  800089c:	6020      	str	r0, [r4, #0]
  800089e:	3404      	adds	r4, #4
  80008a0:	8021      	strh	r1, [r4, #0]
-		strcat (str, sresource);
+    strcat(str, sresource);
  80008a2:	f107 02a8 	add.w	r2, r7, #168	@ 0xa8
  80008a6:	f107 030c 	add.w	r3, r7, #12
  80008aa:	4611      	mov	r1, r2
  80008ac:	4618      	mov	r0, r3
  80008ae:	f005 f9c7 	bl	8005c40 <strcat>
-		strcat (str, "\n Not releasing the Semaphore\n\n\n");
+    strcat(str, "\n Not releasing the Semaphore\n\n\n");
  80008b2:	f107 030c 	add.w	r3, r7, #12
  80008b6:	4618      	mov	r0, r3
  80008b8:	f7ff fc8a 	bl	80001d0 <strlen>
@@ -970,7 +969,7 @@ void HPT_Task (void *pvParameters)
  80008ea:	4622      	mov	r2, r4
  80008ec:	7812      	ldrb	r2, [r2, #0]
  80008ee:	701a      	strb	r2, [r3, #0]
-		HAL_UART_Transmit(&huart2, (uint8_t *)str, strlen (str), HAL_MAX_DELAY);
+    HAL_UART_Transmit(&huart2, (uint8_t *)str, strlen(str), HAL_MAX_DELAY);
  80008f0:	f107 030c 	add.w	r3, r7, #12
  80008f4:	4618      	mov	r0, r3
  80008f6:	f7ff fc6b 	bl	80001d0 <strlen>
@@ -981,25 +980,26 @@ void HPT_Task (void *pvParameters)
  8000906:	480e      	ldr	r0, [pc, #56]	@ (8000940 <HPT_Task+0x1d4>)
  8000908:	f001 ff84 	bl	8002814 <HAL_UART_Transmit>
 
-		indx++;
+    indx++;
  800090c:	4b0d      	ldr	r3, [pc, #52]	@ (8000944 <HPT_Task+0x1d8>)
  800090e:	681b      	ldr	r3, [r3, #0]
  8000910:	3301      	adds	r3, #1
  8000912:	4a0c      	ldr	r2, [pc, #48]	@ (8000944 <HPT_Task+0x1d8>)
  8000914:	6013      	str	r3, [r2, #0]
-		if (indx>2) indx=0;
+    if (indx > 2)
  8000916:	4b0b      	ldr	r3, [pc, #44]	@ (8000944 <HPT_Task+0x1d8>)
  8000918:	681b      	ldr	r3, [r3, #0]
  800091a:	2b02      	cmp	r3, #2
  800091c:	dd02      	ble.n	8000924 <HPT_Task+0x1b8>
+      indx = 0;
  800091e:	4b09      	ldr	r3, [pc, #36]	@ (8000944 <HPT_Task+0x1d8>)
  8000920:	2200      	movs	r2, #0
  8000922:	601a      	str	r2, [r3, #0]
 
-		vTaskDelay(3000);
+    vTaskDelay(3000);
  8000924:	f640 30b8 	movw	r0, #3000	@ 0xbb8
  8000928:	f003 fe82 	bl	8004630 <vTaskDelay>
-	{
+  {
  800092c:	e73a      	b.n	80007a4 <HPT_Task+0x38>
  800092e:	bf00      	nop
  8000930:	200002e4 	.word	0x200002e4
@@ -1013,26 +1013,26 @@ void HPT_Task (void *pvParameters)
  8000950:	08005db4 	.word	0x08005db4
 
 08000954 <MPT_Task>:
-	}
-
+    //		vTaskDelete(NULL);
+  }
 }
 // Medium Priority
-void MPT_Task (void *pvParameters)
+void MPT_Task(void *pvParameters)
 {
  8000954:	b5f0      	push	{r4, r5, r6, r7, lr}
  8000956:	b0ad      	sub	sp, #180	@ 0xb4
  8000958:	af00      	add	r7, sp, #0
  800095a:	6078      	str	r0, [r7, #4]
-	char sresource[3];
-	int semcount = 0;
+  char sresource[3];
+  int semcount = 0;
  800095c:	2300      	movs	r3, #0
  800095e:	f8c7 30ac 	str.w	r3, [r7, #172]	@ 0xac
-	char ssemcount[2];
+  char ssemcount[2];
 
-	while(1)
-	{
-		char str[150];
-		strcpy(str, "Entered MPT Task\n About to ACQUIRE the Semaphore\n ");
+  while (1)
+  {
+    char str[150];
+    strcpy(str, "Entered MPT Task\n About to ACQUIRE the Semaphore\n ");
  8000962:	f107 030c 	add.w	r3, r7, #12
  8000966:	4a61      	ldr	r2, [pc, #388]	@ (8000aec <MPT_Task+0x198>)
  8000968:	461c      	mov	r4, r3
@@ -1049,20 +1049,20 @@ void MPT_Task (void *pvParameters)
  800097e:	3402      	adds	r4, #2
  8000980:	0c1b      	lsrs	r3, r3, #16
  8000982:	7023      	strb	r3, [r4, #0]
-		semcount = uxSemaphoreGetCount(CountingSem);
+    semcount = uxSemaphoreGetCount(CountingSem);
  8000984:	4b5a      	ldr	r3, [pc, #360]	@ (8000af0 <MPT_Task+0x19c>)
  8000986:	681b      	ldr	r3, [r3, #0]
  8000988:	4618      	mov	r0, r3
  800098a:	f003 fb99 	bl	80040c0 <uxQueueMessagesWaiting>
  800098e:	4603      	mov	r3, r0
  8000990:	f8c7 30ac 	str.w	r3, [r7, #172]	@ 0xac
-		itoa (semcount, ssemcount, 10);
+    itoa(semcount, ssemcount, 10);
  8000994:	f107 03a4 	add.w	r3, r7, #164	@ 0xa4
  8000998:	220a      	movs	r2, #10
  800099a:	4619      	mov	r1, r3
  800099c:	f8d7 00ac 	ldr.w	r0, [r7, #172]	@ 0xac
  80009a0:	f005 f902 	bl	8005ba8 <itoa>
-		strcat (str, "Tokens available are: ");
+    strcat(str, "Tokens available are: ");
  80009a4:	f107 030c 	add.w	r3, r7, #12
  80009a8:	4618      	mov	r0, r3
  80009aa:	f7ff fc11 	bl	80001d0 <strlen>
@@ -1085,13 +1085,13 @@ void MPT_Task (void *pvParameters)
  80009d0:	82a3      	strh	r3, [r4, #20]
  80009d2:	4613      	mov	r3, r2
  80009d4:	75a3      	strb	r3, [r4, #22]
-		strcat (str, ssemcount);
+    strcat(str, ssemcount);
  80009d6:	f107 02a4 	add.w	r2, r7, #164	@ 0xa4
  80009da:	f107 030c 	add.w	r3, r7, #12
  80009de:	4611      	mov	r1, r2
  80009e0:	4618      	mov	r0, r3
  80009e2:	f005 f92d 	bl	8005c40 <strcat>
-		strcat (str, "\n\n");
+    strcat(str, "\n\n");
  80009e6:	f107 030c 	add.w	r3, r7, #12
  80009ea:	4618      	mov	r0, r3
  80009ec:	f7ff fbf0 	bl	80001d0 <strlen>
@@ -1104,7 +1104,7 @@ void MPT_Task (void *pvParameters)
  80009fe:	7892      	ldrb	r2, [r2, #2]
  8000a00:	8019      	strh	r1, [r3, #0]
  8000a02:	709a      	strb	r2, [r3, #2]
-		HAL_UART_Transmit(&huart2, (uint8_t *)str, strlen (str), HAL_MAX_DELAY);
+    HAL_UART_Transmit(&huart2, (uint8_t *)str, strlen(str), HAL_MAX_DELAY);
  8000a04:	f107 030c 	add.w	r3, r7, #12
  8000a08:	4618      	mov	r0, r3
  8000a0a:	f7ff fbe1 	bl	80001d0 <strlen>
@@ -1115,14 +1115,14 @@ void MPT_Task (void *pvParameters)
  8000a1a:	4838      	ldr	r0, [pc, #224]	@ (8000afc <MPT_Task+0x1a8>)
  8000a1c:	f001 fefa 	bl	8002814 <HAL_UART_Transmit>
 
-		xSemaphoreTake(CountingSem, portMAX_DELAY);
+    xSemaphoreTake(CountingSem, portMAX_DELAY);
  8000a20:	4b33      	ldr	r3, [pc, #204]	@ (8000af0 <MPT_Task+0x19c>)
  8000a22:	681b      	ldr	r3, [r3, #0]
  8000a24:	f04f 31ff 	mov.w	r1, #4294967295
  8000a28:	4618      	mov	r0, r3
  8000a2a:	f003 fa39 	bl	8003ea0 <xQueueSemaphoreTake>
 
-		itoa (resource[indx], sresource, 10);
+    itoa(resource[indx], sresource, 10);
  8000a2e:	4b34      	ldr	r3, [pc, #208]	@ (8000b00 <MPT_Task+0x1ac>)
  8000a30:	681b      	ldr	r3, [r3, #0]
  8000a32:	4a34      	ldr	r2, [pc, #208]	@ (8000b04 <MPT_Task+0x1b0>)
@@ -1131,7 +1131,7 @@ void MPT_Task (void *pvParameters)
  8000a3c:	220a      	movs	r2, #10
  8000a3e:	4618      	mov	r0, r3
  8000a40:	f005 f8b2 	bl	8005ba8 <itoa>
-		strcpy (str, "Leaving MPT Task\n Data ACCESSED is:: ");
+    strcpy(str, "Leaving MPT Task\n Data ACCESSED is:: ");
  8000a44:	f107 030c 	add.w	r3, r7, #12
  8000a48:	4a2f      	ldr	r2, [pc, #188]	@ (8000b08 <MPT_Task+0x1b4>)
  8000a4a:	461c      	mov	r4, r3
@@ -1144,13 +1144,13 @@ void MPT_Task (void *pvParameters)
  8000a5a:	6020      	str	r0, [r4, #0]
  8000a5c:	3404      	adds	r4, #4
  8000a5e:	8021      	strh	r1, [r4, #0]
-		strcat (str, sresource);
+    strcat(str, sresource);
  8000a60:	f107 02a8 	add.w	r2, r7, #168	@ 0xa8
  8000a64:	f107 030c 	add.w	r3, r7, #12
  8000a68:	4611      	mov	r1, r2
  8000a6a:	4618      	mov	r0, r3
  8000a6c:	f005 f8e8 	bl	8005c40 <strcat>
-		strcat (str, "\n Not releasing the Semaphore\n\n\n");
+    strcat(str, "\n Not releasing the Semaphore\n\n\n");
  8000a70:	f107 030c 	add.w	r3, r7, #12
  8000a74:	4618      	mov	r0, r3
  8000a76:	f7ff fbab 	bl	80001d0 <strlen>
@@ -1177,7 +1177,7 @@ void MPT_Task (void *pvParameters)
  8000aa8:	4622      	mov	r2, r4
  8000aaa:	7812      	ldrb	r2, [r2, #0]
  8000aac:	701a      	strb	r2, [r3, #0]
-		HAL_UART_Transmit(&huart2, (uint8_t *)str, strlen (str), HAL_MAX_DELAY);
+    HAL_UART_Transmit(&huart2, (uint8_t *)str, strlen(str), HAL_MAX_DELAY);
  8000aae:	f107 030c 	add.w	r3, r7, #12
  8000ab2:	4618      	mov	r0, r3
  8000ab4:	f7ff fb8c 	bl	80001d0 <strlen>
@@ -1188,25 +1188,26 @@ void MPT_Task (void *pvParameters)
  8000ac4:	480d      	ldr	r0, [pc, #52]	@ (8000afc <MPT_Task+0x1a8>)
  8000ac6:	f001 fea5 	bl	8002814 <HAL_UART_Transmit>
 
-		indx++;
+    indx++;
  8000aca:	4b0d      	ldr	r3, [pc, #52]	@ (8000b00 <MPT_Task+0x1ac>)
  8000acc:	681b      	ldr	r3, [r3, #0]
  8000ace:	3301      	adds	r3, #1
  8000ad0:	4a0b      	ldr	r2, [pc, #44]	@ (8000b00 <MPT_Task+0x1ac>)
  8000ad2:	6013      	str	r3, [r2, #0]
-		if (indx>2) indx=0;
+    if (indx > 2)
  8000ad4:	4b0a      	ldr	r3, [pc, #40]	@ (8000b00 <MPT_Task+0x1ac>)
  8000ad6:	681b      	ldr	r3, [r3, #0]
  8000ad8:	2b02      	cmp	r3, #2
  8000ada:	dd02      	ble.n	8000ae2 <MPT_Task+0x18e>
+      indx = 0;
  8000adc:	4b08      	ldr	r3, [pc, #32]	@ (8000b00 <MPT_Task+0x1ac>)
  8000ade:	2200      	movs	r2, #0
  8000ae0:	601a      	str	r2, [r3, #0]
 
-		vTaskDelay(2000);
+    vTaskDelay(2000);
  8000ae2:	f44f 60fa 	mov.w	r0, #2000	@ 0x7d0
  8000ae6:	f003 fda3 	bl	8004630 <vTaskDelay>
-	{
+  {
  8000aea:	e73a      	b.n	8000962 <MPT_Task+0xe>
  8000aec:	08005dd8 	.word	0x08005dd8
  8000af0:	200002e4 	.word	0x200002e4
@@ -1219,26 +1220,26 @@ void MPT_Task (void *pvParameters)
  8000b0c:	08005db4 	.word	0x08005db4
 
 08000b10 <LPT_Task>:
-	}
-
+    //		vTaskDelete(NULL);
+  }
 }
 // Low Priority
-void LPT_Task (void *pvParameters)
+void LPT_Task(void *pvParameters)
 {
  8000b10:	b5f0      	push	{r4, r5, r6, r7, lr}
  8000b12:	b0ad      	sub	sp, #180	@ 0xb4
  8000b14:	af00      	add	r7, sp, #0
  8000b16:	6078      	str	r0, [r7, #4]
-	char sresource[3];
-	int semcount = 0;
+  char sresource[3];
+  int semcount = 0;
  8000b18:	2300      	movs	r3, #0
  8000b1a:	f8c7 30ac 	str.w	r3, [r7, #172]	@ 0xac
-	char ssemcount[2];
+  char ssemcount[2];
 
-	while(1)
-	{
-		char str[150];
-		strcpy(str, "Entered LPT Task\n About to ACQUIRE the Semaphore\n ");
+  while (1)
+  {
+    char str[150];
+    strcpy(str, "Entered LPT Task\n About to ACQUIRE the Semaphore\n ");
  8000b1e:	f107 030c 	add.w	r3, r7, #12
  8000b22:	4a61      	ldr	r2, [pc, #388]	@ (8000ca8 <LPT_Task+0x198>)
  8000b24:	461c      	mov	r4, r3
@@ -1255,20 +1256,20 @@ void LPT_Task (void *pvParameters)
  8000b3a:	3402      	adds	r4, #2
  8000b3c:	0c1b      	lsrs	r3, r3, #16
  8000b3e:	7023      	strb	r3, [r4, #0]
-		semcount = uxSemaphoreGetCount(CountingSem);
+    semcount = uxSemaphoreGetCount(CountingSem);
  8000b40:	4b5a      	ldr	r3, [pc, #360]	@ (8000cac <LPT_Task+0x19c>)
  8000b42:	681b      	ldr	r3, [r3, #0]
  8000b44:	4618      	mov	r0, r3
  8000b46:	f003 fabb 	bl	80040c0 <uxQueueMessagesWaiting>
  8000b4a:	4603      	mov	r3, r0
  8000b4c:	f8c7 30ac 	str.w	r3, [r7, #172]	@ 0xac
-		itoa (semcount, ssemcount, 10);
+    itoa(semcount, ssemcount, 10);
  8000b50:	f107 03a4 	add.w	r3, r7, #164	@ 0xa4
  8000b54:	220a      	movs	r2, #10
  8000b56:	4619      	mov	r1, r3
  8000b58:	f8d7 00ac 	ldr.w	r0, [r7, #172]	@ 0xac
  8000b5c:	f005 f824 	bl	8005ba8 <itoa>
-		strcat (str, "Tokens available are: ");
+    strcat(str, "Tokens available are: ");
  8000b60:	f107 030c 	add.w	r3, r7, #12
  8000b64:	4618      	mov	r0, r3
  8000b66:	f7ff fb33 	bl	80001d0 <strlen>
@@ -1291,13 +1292,13 @@ void LPT_Task (void *pvParameters)
  8000b8c:	82a3      	strh	r3, [r4, #20]
  8000b8e:	4613      	mov	r3, r2
  8000b90:	75a3      	strb	r3, [r4, #22]
-		strcat (str, ssemcount);
+    strcat(str, ssemcount);
  8000b92:	f107 02a4 	add.w	r2, r7, #164	@ 0xa4
  8000b96:	f107 030c 	add.w	r3, r7, #12
  8000b9a:	4611      	mov	r1, r2
  8000b9c:	4618      	mov	r0, r3
  8000b9e:	f005 f84f 	bl	8005c40 <strcat>
-		strcat (str, "\n\n");
+    strcat(str, "\n\n");
  8000ba2:	f107 030c 	add.w	r3, r7, #12
  8000ba6:	4618      	mov	r0, r3
  8000ba8:	f7ff fb12 	bl	80001d0 <strlen>
@@ -1310,7 +1311,7 @@ void LPT_Task (void *pvParameters)
  8000bba:	7892      	ldrb	r2, [r2, #2]
  8000bbc:	8019      	strh	r1, [r3, #0]
  8000bbe:	709a      	strb	r2, [r3, #2]
-		HAL_UART_Transmit(&huart2, (uint8_t *)str, strlen (str), HAL_MAX_DELAY);
+    HAL_UART_Transmit(&huart2, (uint8_t *)str, strlen(str), HAL_MAX_DELAY);
  8000bc0:	f107 030c 	add.w	r3, r7, #12
  8000bc4:	4618      	mov	r0, r3
  8000bc6:	f7ff fb03 	bl	80001d0 <strlen>
@@ -1321,14 +1322,14 @@ void LPT_Task (void *pvParameters)
  8000bd6:	4838      	ldr	r0, [pc, #224]	@ (8000cb8 <LPT_Task+0x1a8>)
  8000bd8:	f001 fe1c 	bl	8002814 <HAL_UART_Transmit>
 
-		xSemaphoreTake(CountingSem, portMAX_DELAY);
+    xSemaphoreTake(CountingSem, portMAX_DELAY);
  8000bdc:	4b33      	ldr	r3, [pc, #204]	@ (8000cac <LPT_Task+0x19c>)
  8000bde:	681b      	ldr	r3, [r3, #0]
  8000be0:	f04f 31ff 	mov.w	r1, #4294967295
  8000be4:	4618      	mov	r0, r3
  8000be6:	f003 f95b 	bl	8003ea0 <xQueueSemaphoreTake>
 
-		itoa (resource[indx], sresource, 10);
+    itoa(resource[indx], sresource, 10);
  8000bea:	4b34      	ldr	r3, [pc, #208]	@ (8000cbc <LPT_Task+0x1ac>)
  8000bec:	681b      	ldr	r3, [r3, #0]
  8000bee:	4a34      	ldr	r2, [pc, #208]	@ (8000cc0 <LPT_Task+0x1b0>)
@@ -1337,7 +1338,7 @@ void LPT_Task (void *pvParameters)
  8000bf8:	220a      	movs	r2, #10
  8000bfa:	4618      	mov	r0, r3
  8000bfc:	f004 ffd4 	bl	8005ba8 <itoa>
-		strcpy (str, "Leaving LPT Task\n Data ACCESSED is:: ");
+    strcpy(str, "Leaving LPT Task\n Data ACCESSED is:: ");
  8000c00:	f107 030c 	add.w	r3, r7, #12
  8000c04:	4a2f      	ldr	r2, [pc, #188]	@ (8000cc4 <LPT_Task+0x1b4>)
  8000c06:	461c      	mov	r4, r3
@@ -1350,13 +1351,13 @@ void LPT_Task (void *pvParameters)
  8000c16:	6020      	str	r0, [r4, #0]
  8000c18:	3404      	adds	r4, #4
  8000c1a:	8021      	strh	r1, [r4, #0]
-		strcat (str, sresource);
+    strcat(str, sresource);
  8000c1c:	f107 02a8 	add.w	r2, r7, #168	@ 0xa8
  8000c20:	f107 030c 	add.w	r3, r7, #12
  8000c24:	4611      	mov	r1, r2
  8000c26:	4618      	mov	r0, r3
  8000c28:	f005 f80a 	bl	8005c40 <strcat>
-		strcat (str, "\n Not releasing the Semaphore\n\n\n");
+    strcat(str, "\n Not releasing the Semaphore\n\n\n");
  8000c2c:	f107 030c 	add.w	r3, r7, #12
  8000c30:	4618      	mov	r0, r3
  8000c32:	f7ff facd 	bl	80001d0 <strlen>
@@ -1383,7 +1384,7 @@ void LPT_Task (void *pvParameters)
  8000c64:	4622      	mov	r2, r4
  8000c66:	7812      	ldrb	r2, [r2, #0]
  8000c68:	701a      	strb	r2, [r3, #0]
-		HAL_UART_Transmit(&huart2, (uint8_t *)str, strlen (str), HAL_MAX_DELAY);
+    HAL_UART_Transmit(&huart2, (uint8_t *)str, strlen(str), HAL_MAX_DELAY);
  8000c6a:	f107 030c 	add.w	r3, r7, #12
  8000c6e:	4618      	mov	r0, r3
  8000c70:	f7ff faae 	bl	80001d0 <strlen>
@@ -1394,25 +1395,26 @@ void LPT_Task (void *pvParameters)
  8000c80:	480d      	ldr	r0, [pc, #52]	@ (8000cb8 <LPT_Task+0x1a8>)
  8000c82:	f001 fdc7 	bl	8002814 <HAL_UART_Transmit>
 
-		indx++;
+    indx++;
  8000c86:	4b0d      	ldr	r3, [pc, #52]	@ (8000cbc <LPT_Task+0x1ac>)
  8000c88:	681b      	ldr	r3, [r3, #0]
  8000c8a:	3301      	adds	r3, #1
  8000c8c:	4a0b      	ldr	r2, [pc, #44]	@ (8000cbc <LPT_Task+0x1ac>)
  8000c8e:	6013      	str	r3, [r2, #0]
-		if (indx>2) indx=0;
+    if (indx > 2)
  8000c90:	4b0a      	ldr	r3, [pc, #40]	@ (8000cbc <LPT_Task+0x1ac>)
  8000c92:	681b      	ldr	r3, [r3, #0]
  8000c94:	2b02      	cmp	r3, #2
  8000c96:	dd02      	ble.n	8000c9e <LPT_Task+0x18e>
+      indx = 0;
  8000c98:	4b08      	ldr	r3, [pc, #32]	@ (8000cbc <LPT_Task+0x1ac>)
  8000c9a:	2200      	movs	r2, #0
  8000c9c:	601a      	str	r2, [r3, #0]
 
-		vTaskDelay(1000);
+    vTaskDelay(1000);
  8000c9e:	f44f 707a 	mov.w	r0, #1000	@ 0x3e8
  8000ca2:	f003 fcc5 	bl	8004630 <vTaskDelay>
-	{
+  {
  8000ca6:	e73a      	b.n	8000b1e <LPT_Task+0xe>
  8000ca8:	08005e34 	.word	0x08005e34
  8000cac:	200002e4 	.word	0x200002e4
@@ -1425,26 +1427,26 @@ void LPT_Task (void *pvParameters)
  8000cc8:	08005db4 	.word	0x08005db4
 
 08000ccc <VLPT_Task>:
-	}
-
+    //		vTaskDelete(NULL);
+  }
 }
 // Very-low Priority
-void VLPT_Task (void *pvParameters)
+void VLPT_Task(void *pvParameters)
 {
  8000ccc:	b5f0      	push	{r4, r5, r6, r7, lr}
  8000cce:	b0ad      	sub	sp, #180	@ 0xb4
  8000cd0:	af00      	add	r7, sp, #0
  8000cd2:	6078      	str	r0, [r7, #4]
-	char sresource[3];
-	int semcount = 0;
+  char sresource[3];
+  int semcount = 0;
  8000cd4:	2300      	movs	r3, #0
  8000cd6:	f8c7 30ac 	str.w	r3, [r7, #172]	@ 0xac
-	char ssemcount[2];
+  char ssemcount[2];
 
-	while(1)
-	{
-		char str[150];
-		strcpy(str, "Entered VLPT Task\n About to ACQUIRE the Semaphore\n ");
+  while (1)
+  {
+    char str[150];
+    strcpy(str, "Entered VLPT Task\n About to ACQUIRE the Semaphore\n ");
  8000cda:	f107 030c 	add.w	r3, r7, #12
  8000cde:	4a61      	ldr	r2, [pc, #388]	@ (8000e64 <VLPT_Task+0x198>)
  8000ce0:	461c      	mov	r4, r3
@@ -1457,20 +1459,20 @@ void VLPT_Task (void *pvParameters)
  8000cee:	c40f      	stmia	r4!, {r0, r1, r2, r3}
  8000cf0:	682b      	ldr	r3, [r5, #0]
  8000cf2:	6023      	str	r3, [r4, #0]
-		semcount = uxSemaphoreGetCount(CountingSem);
+    semcount = uxSemaphoreGetCount(CountingSem);
  8000cf4:	4b5c      	ldr	r3, [pc, #368]	@ (8000e68 <VLPT_Task+0x19c>)
  8000cf6:	681b      	ldr	r3, [r3, #0]
  8000cf8:	4618      	mov	r0, r3
  8000cfa:	f003 f9e1 	bl	80040c0 <uxQueueMessagesWaiting>
  8000cfe:	4603      	mov	r3, r0
  8000d00:	f8c7 30ac 	str.w	r3, [r7, #172]	@ 0xac
-		itoa (semcount, ssemcount, 10);
+    itoa(semcount, ssemcount, 10);
  8000d04:	f107 03a4 	add.w	r3, r7, #164	@ 0xa4
  8000d08:	220a      	movs	r2, #10
  8000d0a:	4619      	mov	r1, r3
  8000d0c:	f8d7 00ac 	ldr.w	r0, [r7, #172]	@ 0xac
  8000d10:	f004 ff4a 	bl	8005ba8 <itoa>
-		strcat (str, "Tokens available are: ");
+    strcat(str, "Tokens available are: ");
  8000d14:	f107 030c 	add.w	r3, r7, #12
  8000d18:	4618      	mov	r0, r3
  8000d1a:	f7ff fa59 	bl	80001d0 <strlen>
@@ -1493,13 +1495,13 @@ void VLPT_Task (void *pvParameters)
  8000d40:	82a3      	strh	r3, [r4, #20]
  8000d42:	4613      	mov	r3, r2
  8000d44:	75a3      	strb	r3, [r4, #22]
-		strcat (str, ssemcount);
+    strcat(str, ssemcount);
  8000d46:	f107 02a4 	add.w	r2, r7, #164	@ 0xa4
  8000d4a:	f107 030c 	add.w	r3, r7, #12
  8000d4e:	4611      	mov	r1, r2
  8000d50:	4618      	mov	r0, r3
  8000d52:	f004 ff75 	bl	8005c40 <strcat>
-		strcat (str, "\n\n");
+    strcat(str, "\n\n");
  8000d56:	f107 030c 	add.w	r3, r7, #12
  8000d5a:	4618      	mov	r0, r3
  8000d5c:	f7ff fa38 	bl	80001d0 <strlen>
@@ -1512,7 +1514,7 @@ void VLPT_Task (void *pvParameters)
  8000d6e:	7892      	ldrb	r2, [r2, #2]
  8000d70:	8019      	strh	r1, [r3, #0]
  8000d72:	709a      	strb	r2, [r3, #2]
-		HAL_UART_Transmit(&huart2, (uint8_t *)str, strlen (str), HAL_MAX_DELAY);
+    HAL_UART_Transmit(&huart2, (uint8_t *)str, strlen(str), HAL_MAX_DELAY);
  8000d74:	f107 030c 	add.w	r3, r7, #12
  8000d78:	4618      	mov	r0, r3
  8000d7a:	f7ff fa29 	bl	80001d0 <strlen>
@@ -1523,14 +1525,14 @@ void VLPT_Task (void *pvParameters)
  8000d8a:	483a      	ldr	r0, [pc, #232]	@ (8000e74 <VLPT_Task+0x1a8>)
  8000d8c:	f001 fd42 	bl	8002814 <HAL_UART_Transmit>
 
-		xSemaphoreTake(CountingSem, portMAX_DELAY);
+    xSemaphoreTake(CountingSem, portMAX_DELAY);
  8000d90:	4b35      	ldr	r3, [pc, #212]	@ (8000e68 <VLPT_Task+0x19c>)
  8000d92:	681b      	ldr	r3, [r3, #0]
  8000d94:	f04f 31ff 	mov.w	r1, #4294967295
  8000d98:	4618      	mov	r0, r3
  8000d9a:	f003 f881 	bl	8003ea0 <xQueueSemaphoreTake>
 
-		itoa (resource[indx], sresource, 10);
+    itoa(resource[indx], sresource, 10);
  8000d9e:	4b36      	ldr	r3, [pc, #216]	@ (8000e78 <VLPT_Task+0x1ac>)
  8000da0:	681b      	ldr	r3, [r3, #0]
  8000da2:	4a36      	ldr	r2, [pc, #216]	@ (8000e7c <VLPT_Task+0x1b0>)
@@ -1539,7 +1541,7 @@ void VLPT_Task (void *pvParameters)
  8000dac:	220a      	movs	r2, #10
  8000dae:	4618      	mov	r0, r3
  8000db0:	f004 fefa 	bl	8005ba8 <itoa>
-		strcpy (str, "Leaving VLPT Task\n Data ACCESSED is:: ");
+    strcpy(str, "Leaving VLPT Task\n Data ACCESSED is:: ");
  8000db4:	f107 030c 	add.w	r3, r7, #12
  8000db8:	4a31      	ldr	r2, [pc, #196]	@ (8000e80 <VLPT_Task+0x1b4>)
  8000dba:	461c      	mov	r4, r3
@@ -1555,13 +1557,13 @@ void VLPT_Task (void *pvParameters)
  8000dd0:	3402      	adds	r4, #2
  8000dd2:	0c0b      	lsrs	r3, r1, #16
  8000dd4:	7023      	strb	r3, [r4, #0]
-		strcat (str, sresource);
+    strcat(str, sresource);
  8000dd6:	f107 02a8 	add.w	r2, r7, #168	@ 0xa8
  8000dda:	f107 030c 	add.w	r3, r7, #12
  8000dde:	4611      	mov	r1, r2
  8000de0:	4618      	mov	r0, r3
  8000de2:	f004 ff2d 	bl	8005c40 <strcat>
-		strcat (str, "\n Not releasing the Semaphore\n\n\n");
+    strcat(str, "\n Not releasing the Semaphore\n\n\n");
  8000de6:	f107 030c 	add.w	r3, r7, #12
  8000dea:	4618      	mov	r0, r3
  8000dec:	f7ff f9f0 	bl	80001d0 <strlen>
@@ -1588,7 +1590,7 @@ void VLPT_Task (void *pvParameters)
  8000e1e:	4622      	mov	r2, r4
  8000e20:	7812      	ldrb	r2, [r2, #0]
  8000e22:	701a      	strb	r2, [r3, #0]
-		HAL_UART_Transmit(&huart2, (uint8_t *)str, strlen (str), HAL_MAX_DELAY);
+    HAL_UART_Transmit(&huart2, (uint8_t *)str, strlen(str), HAL_MAX_DELAY);
  8000e24:	f107 030c 	add.w	r3, r7, #12
  8000e28:	4618      	mov	r0, r3
  8000e2a:	f7ff f9d1 	bl	80001d0 <strlen>
@@ -1599,25 +1601,26 @@ void VLPT_Task (void *pvParameters)
  8000e3a:	480e      	ldr	r0, [pc, #56]	@ (8000e74 <VLPT_Task+0x1a8>)
  8000e3c:	f001 fcea 	bl	8002814 <HAL_UART_Transmit>
 
-		indx++;
+    indx++;
  8000e40:	4b0d      	ldr	r3, [pc, #52]	@ (8000e78 <VLPT_Task+0x1ac>)
  8000e42:	681b      	ldr	r3, [r3, #0]
  8000e44:	3301      	adds	r3, #1
  8000e46:	4a0c      	ldr	r2, [pc, #48]	@ (8000e78 <VLPT_Task+0x1ac>)
  8000e48:	6013      	str	r3, [r2, #0]
-		if (indx>2) indx=0;
+    if (indx > 2)
  8000e4a:	4b0b      	ldr	r3, [pc, #44]	@ (8000e78 <VLPT_Task+0x1ac>)
  8000e4c:	681b      	ldr	r3, [r3, #0]
  8000e4e:	2b02      	cmp	r3, #2
  8000e50:	dd02      	ble.n	8000e58 <VLPT_Task+0x18c>
+      indx = 0;
  8000e52:	4b09      	ldr	r3, [pc, #36]	@ (8000e78 <VLPT_Task+0x1ac>)
  8000e54:	2200      	movs	r2, #0
  8000e56:	601a      	str	r2, [r3, #0]
 
-		vTaskDelay(1000);
+    vTaskDelay(1000);
  8000e58:	f44f 707a 	mov.w	r0, #1000	@ 0x3e8
  8000e5c:	f003 fbe8 	bl	8004630 <vTaskDelay>
-	{
+  {
  8000e60:	e73b      	b.n	8000cda <VLPT_Task+0xe>
  8000e62:	bf00      	nop
  8000e64:	08005e90 	.word	0x08005e90
@@ -1631,52 +1634,52 @@ void VLPT_Task (void *pvParameters)
  8000e84:	08005db4 	.word	0x08005db4
 
 08000e88 <HAL_UART_RxCpltCallback>:
+  }
 }
 
-	// UART callback func
-
-void  HAL_UART_RxCpltCallback(UART_HandleTypeDef *huart)
+// UART callback func
+void HAL_UART_RxCpltCallback(UART_HandleTypeDef *huart)
 {
  8000e88:	b580      	push	{r7, lr}
  8000e8a:	b084      	sub	sp, #16
  8000e8c:	af00      	add	r7, sp, #0
  8000e8e:	6078      	str	r0, [r7, #4]
-	HAL_UART_Receive_IT(huart, &rx_data, 1);
+  HAL_UART_Receive_IT(huart, &rx_data, 1);
  8000e90:	2201      	movs	r2, #1
  8000e92:	4918      	ldr	r1, [pc, #96]	@ (8000ef4 <HAL_UART_RxCpltCallback+0x6c>)
  8000e94:	6878      	ldr	r0, [r7, #4]
  8000e96:	f001 fd48 	bl	800292a <HAL_UART_Receive_IT>
-	if (rx_data == 'r')
+  if (rx_data == 'r')
  8000e9a:	4b16      	ldr	r3, [pc, #88]	@ (8000ef4 <HAL_UART_RxCpltCallback+0x6c>)
  8000e9c:	781b      	ldrb	r3, [r3, #0]
  8000e9e:	2b72      	cmp	r3, #114	@ 0x72
  8000ea0:	d124      	bne.n	8000eec <HAL_UART_RxCpltCallback+0x64>
-	{
-		BaseType_t xHigherPriorityTaskWoken = pdFALSE;
+  {
+    BaseType_t xHigherPriorityTaskWoken = pdFALSE;
  8000ea2:	2300      	movs	r3, #0
  8000ea4:	60fb      	str	r3, [r7, #12]
-		xSemaphoreGiveFromISR(CountingSem, &xHigherPriorityTaskWoken);
+    xSemaphoreGiveFromISR(CountingSem, &xHigherPriorityTaskWoken);
  8000ea6:	4b14      	ldr	r3, [pc, #80]	@ (8000ef8 <HAL_UART_RxCpltCallback+0x70>)
  8000ea8:	681b      	ldr	r3, [r3, #0]
  8000eaa:	f107 020c 	add.w	r2, r7, #12
  8000eae:	4611      	mov	r1, r2
  8000eb0:	4618      	mov	r0, r3
  8000eb2:	f002 ff65 	bl	8003d80 <xQueueGiveFromISR>
-		xSemaphoreGiveFromISR(CountingSem, &xHigherPriorityTaskWoken);
+    xSemaphoreGiveFromISR(CountingSem, &xHigherPriorityTaskWoken);
  8000eb6:	4b10      	ldr	r3, [pc, #64]	@ (8000ef8 <HAL_UART_RxCpltCallback+0x70>)
  8000eb8:	681b      	ldr	r3, [r3, #0]
  8000eba:	f107 020c 	add.w	r2, r7, #12
  8000ebe:	4611      	mov	r1, r2
  8000ec0:	4618      	mov	r0, r3
  8000ec2:	f002 ff5d 	bl	8003d80 <xQueueGiveFromISR>
-		xSemaphoreGiveFromISR(CountingSem, &xHigherPriorityTaskWoken);
+    xSemaphoreGiveFromISR(CountingSem, &xHigherPriorityTaskWoken);
  8000ec6:	4b0c      	ldr	r3, [pc, #48]	@ (8000ef8 <HAL_UART_RxCpltCallback+0x70>)
  8000ec8:	681b      	ldr	r3, [r3, #0]
  8000eca:	f107 020c 	add.w	r2, r7, #12
  8000ece:	4611      	mov	r1, r2
  8000ed0:	4618      	mov	r0, r3
  8000ed2:	f002 ff55 	bl	8003d80 <xQueueGiveFromISR>
-		portEND_SWITCHING_ISR( xHigherPriorityTaskWoken );
+    portEND_SWITCHING_ISR(xHigherPriorityTaskWoken);
  8000ed6:	68fb      	ldr	r3, [r7, #12]
  8000ed8:	2b00      	cmp	r3, #0
  8000eda:	d007      	beq.n	8000eec <HAL_UART_RxCpltCallback+0x64>
@@ -1685,7 +1688,7 @@ void  HAL_UART_RxCpltCallback(UART_HandleTypeDef *huart)
  8000ee2:	601a      	str	r2, [r3, #0]
  8000ee4:	f3bf 8f4f 	dsb	sy
  8000ee8:	f3bf 8f6f 	isb	sy
-	}
+  }
 }
  8000eec:	bf00      	nop
  8000eee:	3710      	adds	r7, #16
@@ -1696,10 +1699,10 @@ void  HAL_UART_RxCpltCallback(UART_HandleTypeDef *huart)
  8000efc:	e000ed04 	.word	0xe000ed04
 
 08000f00 <HAL_TIM_PeriodElapsedCallback>:
-  * a global variable "uwTick" used as application time base.
-  * @param  htim : TIM handle
-  * @retval None
-  */
+ * a global variable "uwTick" used as application time base.
+ * @param  htim : TIM handle
+ * @retval None
+ */
 void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim)
 {
  8000f00:	b580      	push	{r7, lr}
@@ -1709,12 +1712,13 @@ void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim)
   /* USER CODE BEGIN Callback 0 */
 
   /* USER CODE END Callback 0 */
-  if (htim->Instance == TIM6) {
+  if (htim->Instance == TIM6)
  8000f08:	687b      	ldr	r3, [r7, #4]
  8000f0a:	681b      	ldr	r3, [r3, #0]
  8000f0c:	4a04      	ldr	r2, [pc, #16]	@ (8000f20 <HAL_TIM_PeriodElapsedCallback+0x20>)
  8000f0e:	4293      	cmp	r3, r2
  8000f10:	d101      	bne.n	8000f16 <HAL_TIM_PeriodElapsedCallback+0x16>
+  {
     HAL_IncTick();
  8000f12:	f000 f993 	bl	800123c <HAL_IncTick>
   }
@@ -1731,9 +1735,9 @@ void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim)
 
 08000f24 <Error_Handler>:
 /**
-  * @brief  This function is executed in case of error occurrence.
-  * @retval None
-  */
+ * @brief  This function is executed in case of error occurrence.
+ * @retval None
+ */
 void Error_Handler(void)
 {
  8000f24:	b480      	push	{r7}

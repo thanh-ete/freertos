@@ -1,24 +1,23 @@
 /* USER CODE BEGIN Header */
 /**
-  ******************************************************************************
-  * @file           : main.c
-  * @brief          : Main program body
-  ******************************************************************************
-  * @attention
-  *
-  * Copyright (c) 2024 STMicroelectronics.
-  * All rights reserved.
-  *
-  * This software is licensed under terms that can be found in the LICENSE file
-  * in the root directory of this software component.
-  * If no LICENSE file comes with this software, it is provided AS-IS.
-  *
-  ******************************************************************************
-  */
+ ******************************************************************************
+ * @file           : main.c
+ * @brief          : Main program body
+ ******************************************************************************
+ * @attention
+ *
+ * Copyright (c) 2024 STMicroelectronics.
+ * All rights reserved.
+ *
+ * This software is licensed under terms that can be found in the LICENSE file
+ * in the root directory of this software component.
+ * If no LICENSE file comes with this software, it is provided AS-IS.
+ *
+ ******************************************************************************
+ */
 /* USER CODE END Header */
 /* Includes ------------------------------------------------------------------*/
 #include "main.h"
-
 
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
@@ -58,7 +57,6 @@ void SystemClock_Config(void);
 static void MX_GPIO_Init(void);
 static void MX_USART2_UART_Init(void);
 
-
 /* USER CODE BEGIN PFP */
 
 /* USER CODE END PFP */
@@ -71,24 +69,22 @@ TaskHandle_t HighPT_Handler;
 TaskHandle_t MediumPT_Handler;
 TaskHandle_t LowPT_Handler;
 
-void High_Task(void* argument);
-void Medium_Task(void* argument);
+void High_Task(void *argument);
+void Medium_Task(void *argument);
 
-
-
-void Send_UART (char *str)
+void Send_UART(char *str)
 {
-	xSemaphoreTake(SimpleMutex, portMAX_DELAY);
-	HAL_UART_Transmit(&huart2, str, strlen(str), HAL_MAX_DELAY);
-	HAL_Delay(2000);
-	xSemaphoreGive(SimpleMutex);
+  xSemaphoreTake(SimpleMutex, portMAX_DELAY);
+  HAL_UART_Transmit(&huart2, str, strlen(str), HAL_MAX_DELAY);
+  HAL_Delay(2000);
+  xSemaphoreGive(SimpleMutex);
 }
 /* USER CODE END 0 */
 
 /**
-  * @brief  The application entry point.
-  * @retval int
-  */
+ * @brief  The application entry point.
+ * @retval int
+ */
 int main(void)
 {
 
@@ -116,18 +112,17 @@ int main(void)
   MX_GPIO_Init();
   MX_USART2_UART_Init();
   /* USER CODE BEGIN 2 */
-SimpleMutex = xSemaphoreCreateMutex();
-if(SimpleMutex != NULL)
-{
-	HAL_UART_Transmit(&huart2, "Mutex created\n\n", 15, 1000);
-}
+  SimpleMutex = xSemaphoreCreateMutex();
+  if (SimpleMutex != NULL)
+  {
+    HAL_UART_Transmit(&huart2, "Mutex created\n\n", 15, 1000);
+  }
 
-/*----------------Create Task----------------*/
-xTaskCreate(High_Task, "HPT",128, NULL, 3, &HighPT_Handler);
-xTaskCreate(Medium_Task, "MPT",128, NULL, 3, &MediumPT_Handler);
+  /*----------------Create Task----------------*/
+  xTaskCreate(High_Task, "HPT", 128, NULL, 3, &HighPT_Handler);
+  xTaskCreate(Medium_Task, "MPT", 128, NULL, 2, &MediumPT_Handler);
 
-
-vTaskStartScheduler();
+  vTaskStartScheduler();
 
   /* USER CODE END 2 */
 
@@ -145,22 +140,22 @@ vTaskStartScheduler();
 }
 
 /**
-  * @brief System Clock Configuration
-  * @retval None
-  */
+ * @brief System Clock Configuration
+ * @retval None
+ */
 void SystemClock_Config(void)
 {
   RCC_OscInitTypeDef RCC_OscInitStruct = {0};
   RCC_ClkInitTypeDef RCC_ClkInitStruct = {0};
 
   /** Configure the main internal regulator output voltage
-  */
+   */
   __HAL_RCC_PWR_CLK_ENABLE();
   __HAL_PWR_VOLTAGESCALING_CONFIG(PWR_REGULATOR_VOLTAGE_SCALE1);
 
   /** Initializes the RCC Oscillators according to the specified parameters
-  * in the RCC_OscInitTypeDef structure.
-  */
+   * in the RCC_OscInitTypeDef structure.
+   */
   RCC_OscInitStruct.OscillatorType = RCC_OSCILLATORTYPE_HSE;
   RCC_OscInitStruct.HSEState = RCC_HSE_ON;
   RCC_OscInitStruct.PLL.PLLState = RCC_PLL_ON;
@@ -175,9 +170,8 @@ void SystemClock_Config(void)
   }
 
   /** Initializes the CPU, AHB and APB buses clocks
-  */
-  RCC_ClkInitStruct.ClockType = RCC_CLOCKTYPE_HCLK|RCC_CLOCKTYPE_SYSCLK
-                              |RCC_CLOCKTYPE_PCLK1|RCC_CLOCKTYPE_PCLK2;
+   */
+  RCC_ClkInitStruct.ClockType = RCC_CLOCKTYPE_HCLK | RCC_CLOCKTYPE_SYSCLK | RCC_CLOCKTYPE_PCLK1 | RCC_CLOCKTYPE_PCLK2;
   RCC_ClkInitStruct.SYSCLKSource = RCC_SYSCLKSOURCE_PLLCLK;
   RCC_ClkInitStruct.AHBCLKDivider = RCC_SYSCLK_DIV1;
   RCC_ClkInitStruct.APB1CLKDivider = RCC_HCLK_DIV4;
@@ -190,10 +184,10 @@ void SystemClock_Config(void)
 }
 
 /**
-  * @brief USART2 Initialization Function
-  * @param None
-  * @retval None
-  */
+ * @brief USART2 Initialization Function
+ * @param None
+ * @retval None
+ */
 static void MX_USART2_UART_Init(void)
 {
 
@@ -219,80 +213,77 @@ static void MX_USART2_UART_Init(void)
   /* USER CODE BEGIN USART2_Init 2 */
 
   /* USER CODE END USART2_Init 2 */
-
 }
 
 /**
-  * @brief GPIO Initialization Function
-  * @param None
-  * @retval None
-  */
+ * @brief GPIO Initialization Function
+ * @param None
+ * @retval None
+ */
 static void MX_GPIO_Init(void)
 {
-/* USER CODE BEGIN MX_GPIO_Init_1 */
-/* USER CODE END MX_GPIO_Init_1 */
+  /* USER CODE BEGIN MX_GPIO_Init_1 */
+  /* USER CODE END MX_GPIO_Init_1 */
 
   /* GPIO Ports Clock Enable */
   __HAL_RCC_GPIOH_CLK_ENABLE();
   __HAL_RCC_GPIOA_CLK_ENABLE();
 
-/* USER CODE BEGIN MX_GPIO_Init_2 */
-/* USER CODE END MX_GPIO_Init_2 */
+  /* USER CODE BEGIN MX_GPIO_Init_2 */
+  /* USER CODE END MX_GPIO_Init_2 */
 }
 
 /* USER CODE BEGIN 4 */
-void High_Task (void *argument)
+void High_Task(void *argument)
 {
-	uint8_t *strtosend = "IN HPT--------------------------\n";
-	while (1)
-	{
-		char *str = "Entered Hight_PT and About to take MUTEX\n";
-		HAL_UART_Transmit(&huart2, str, strlen (str), HAL_MAX_DELAY);
+  uint8_t *strtosend = "IN HPT--------------------------\n";
+  while (1)
+  {
+    char *str = "Enter Hight_PT and About to take MUTEX\n";
+    HAL_UART_Transmit(&huart2, str, strlen(str), HAL_MAX_DELAY);
 
-		Send_UART(strtosend);
+    Send_UART(strtosend);
 
-		char *str2 = "Leaving Hight_PT\n\n";
-		HAL_UART_Transmit(&huart2, str2, strlen (str2), HAL_MAX_DELAY);
+    char *str2 = "Leaving Hight_PT\n\n";
+    HAL_UART_Transmit(&huart2, str2, strlen(str2), HAL_MAX_DELAY);
 
-		vTaskDelay(2000);
-	}
+    vTaskDelay(2000);
+  }
 }
 
-
-void Medium_Task (void *argument)
+void Medium_Task(void *argument)
 {
-	uint8_t *strtosend = "IN MPT...........................\n";
-	while (1)
-	{
-		char *str = "Entered Medium_PT and About to take MUTEX\n";
-		HAL_UART_Transmit(&huart2, str, strlen (str), HAL_MAX_DELAY);
+  uint8_t *strtosend = "IN MPT...........................\n";
+  while (1)
+  {
+    char *str = "Enter Medium_PT and About to take MUTEX\n";
+    HAL_UART_Transmit(&huart2, str, strlen(str), HAL_MAX_DELAY);
 
-		Send_UART(strtosend);
+    Send_UART(strtosend);
 
-		char *str2 = "Leaving Medium_PT\n\n";
-		HAL_UART_Transmit(&huart2, str2, strlen (str2), HAL_MAX_DELAY);
+    char *str2 = "Leaving Medium_PT\n\n";
+    HAL_UART_Transmit(&huart2, str2, strlen(str2), HAL_MAX_DELAY);
 
-		vTaskDelay(1000);
-	}
+    vTaskDelay(1500);
+  }
 }
 /* USER CODE END 4 */
 
-
-
 /**
-  * @brief  Period elapsed callback in non blocking mode
-  * @note   This function is called  when TIM6 interrupt took place, inside
-  * HAL_TIM_IRQHandler(). It makes a direct call to HAL_IncTick() to increment
-  * a global variable "uwTick" used as application time base.
-  * @param  htim : TIM handle
-  * @retval None
-  */
+ * @brief  Period elapsed callback in non blocking mode
+ * @note   This function is called  when TIM6 interrupt took place, inside
+ * HAL_TIM_IRQHandler(). It makes a direct call to HAL_IncTick() to increment
+ * a global variable "uwTick" used as application time base.
+ * @param  htim : TIM handle
+ * @retval None
+ */
 void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim)
 {
   /* USER CODE BEGIN Callback 0 */
 
   /* USER CODE END Callback 0 */
-  if (htim->Instance == TIM6) {
+  if (htim->Instance == TIM6)
+  {
     HAL_IncTick();
   }
   /* USER CODE BEGIN Callback 1 */
@@ -301,9 +292,9 @@ void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim)
 }
 
 /**
-  * @brief  This function is executed in case of error occurrence.
-  * @retval None
-  */
+ * @brief  This function is executed in case of error occurrence.
+ * @retval None
+ */
 void Error_Handler(void)
 {
   /* USER CODE BEGIN Error_Handler_Debug */
@@ -315,14 +306,14 @@ void Error_Handler(void)
   /* USER CODE END Error_Handler_Debug */
 }
 
-#ifdef  USE_FULL_ASSERT
+#ifdef USE_FULL_ASSERT
 /**
-  * @brief  Reports the name of the source file and the source line number
-  *         where the assert_param error has occurred.
-  * @param  file: pointer to the source file name
-  * @param  line: assert_param error line source number
-  * @retval None
-  */
+ * @brief  Reports the name of the source file and the source line number
+ *         where the assert_param error has occurred.
+ * @param  file: pointer to the source file name
+ * @param  line: assert_param error line source number
+ * @retval None
+ */
 void assert_failed(uint8_t *file, uint32_t line)
 {
   /* USER CODE BEGIN 6 */

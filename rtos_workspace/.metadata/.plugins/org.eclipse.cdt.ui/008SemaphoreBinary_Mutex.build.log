@@ -1,4 +1,4 @@
-21:53:34 **** Incremental Build of configuration Debug for project 008SemaphoreBinary_Mutex ****
+17:00:04 **** Incremental Build of configuration Debug for project 008SemaphoreBinary_Mutex ****
 make -j8 all 
 arm-none-eabi-size  008SemaphoreBinary_Mutex.elf 
    text	   data	    bss	    dec	    hex	filename
@@ -6,5 +6,5 @@ arm-none-eabi-size  008SemaphoreBinary_Mutex.elf
 Finished building: default.size.stdout
  
 
-21:53:34 Build Finished. 0 errors, 0 warnings. (took 314ms)
+17:00:05 Build Finished. 0 errors, 0 warnings. (took 303ms)
 

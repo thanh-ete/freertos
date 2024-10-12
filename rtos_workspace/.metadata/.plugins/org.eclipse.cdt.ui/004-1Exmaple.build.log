@@ -1,0 +1,10 @@
+21:09:27 **** Incremental Build of configuration Debug for project 004-1Exmaple ****
+make -j8 all 
+arm-none-eabi-size  004-1Exmaple.elf 
+   text	   data	    bss	    dec	    hex	filename
+  24104	     28	  18036	  42168	   a4b8	004-1Exmaple.elf
+Finished building: default.size.stdout
+ 
+
+21:09:27 Build Finished. 0 errors, 0 warnings. (took 270ms)
+
