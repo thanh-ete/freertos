@@ -1,198 +1,28 @@
-16:51:09 **** Incremental Build of configuration Debug for project 007Mutex ****
+08:12:26 **** Incremental Build of configuration Debug for project 003Example_2 ****
 make -j8 all 
 arm-none-eabi-gcc "../Core/Src/main.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32F407xx -c -I../Core/Inc -I../Drivers/STM32F4xx_HAL_Driver/Inc -I../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32F4xx/Include -I../Drivers/CMSIS/Include -I../Middlewares/Third_Party/FreeRTOS/Source/include -I../Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS -I../Middlewares/Third_Party/FreeRTOS/Source/portable/GCC/ARM_CM4F -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Core/Src/main.d" -MT"Core/Src/main.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Core/Src/main.o"
-../Core/Src/main.c: In function 'Send_UART':
-../Core/Src/main.c:78:30: warning: pointer targets in passing argument 2 of 'HAL_UART_Transmit' differ in signedness [-Wpointer-sign]
-   78 |   HAL_UART_Transmit(&huart2, str, strlen(str), HAL_MAX_DELAY);
-      |                              ^~~
-      |                              |
-      |                              char *
-In file included from ../Core/Inc/stm32f4xx_hal_conf.h:411,
-                 from ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal.h:29,
-                 from ../Core/Inc/main.h:30,
-                 from ../Core/Src/main.c:20:
-../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_uart.h:745:79: note: expected 'const uint8_t *' {aka 'const unsigned char *'} but argument is of type 'char *'
-  745 | HAL_StatusTypeDef HAL_UART_Transmit(UART_HandleTypeDef *huart, const uint8_t *pData, uint16_t Size, uint32_t Timeout);
-      |                                                                ~~~~~~~~~~~~~~~^~~~~
-../Core/Src/main.c: In function 'main':
-../Core/Src/main.c:118:32: warning: pointer targets in passing argument 2 of 'HAL_UART_Transmit' differ in signedness [-Wpointer-sign]
-  118 |     HAL_UART_Transmit(&huart2, "Mutex created\n\n", 15, 1000);
-      |                                ^~~~~~~~~~~~~~~~~~~
-      |                                |
-      |                                char *
-../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_uart.h:745:79: note: expected 'const uint8_t *' {aka 'const unsigned char *'} but argument is of type 'char *'
-  745 | HAL_StatusTypeDef HAL_UART_Transmit(UART_HandleTypeDef *huart, const uint8_t *pData, uint16_t Size, uint32_t Timeout);
-      |                                                                ~~~~~~~~~~~~~~~^~~~~
-../Core/Src/main.c: In function 'High_Task':
-../Core/Src/main.c:239:24: warning: pointer targets in initialization of 'uint8_t *' {aka 'unsigned char *'} from 'char *' differ in signedness [-Wpointer-sign]
-  239 |   uint8_t *strtosend = "IN HPT--------------------------\n";
-      |                        ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-../Core/Src/main.c:243:32: warning: pointer targets in passing argument 2 of 'HAL_UART_Transmit' differ in signedness [-Wpointer-sign]
-  243 |     HAL_UART_Transmit(&huart2, str, strlen(str), HAL_MAX_DELAY);
-      |                                ^~~
-      |                                |
-      |                                char *
-../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_uart.h:745:79: note: expected 'const uint8_t *' {aka 'const unsigned char *'} but argument is of type 'char *'
-  745 | HAL_StatusTypeDef HAL_UART_Transmit(UART_HandleTypeDef *huart, const uint8_t *pData, uint16_t Size, uint32_t Timeout);
-      |                                                                ~~~~~~~~~~~~~~~^~~~~
-../Core/Src/main.c:245:15: warning: pointer targets in passing argument 1 of 'Send_UART' differ in signedness [-Wpointer-sign]
-  245 |     Send_UART(strtosend);
-      |               ^~~~~~~~~
-      |               |
-      |               uint8_t * {aka unsigned char *}
-../Core/Src/main.c:75:22: note: expected 'char *' but argument is of type 'uint8_t *' {aka 'unsigned char *'}
-   75 | void Send_UART(char *str)
-      |                ~~~~~~^~~
-../Core/Src/main.c:248:32: warning: pointer targets in passing argument 2 of 'HAL_UART_Transmit' differ in signedness [-Wpointer-sign]
-  248 |     HAL_UART_Transmit(&huart2, str2, strlen(str2), HAL_MAX_DELAY);
-      |                                ^~~~
-      |                                |
-      |                                char *
-../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_uart.h:745:79: note: expected 'const uint8_t *' {aka 'const unsigned char *'} but argument is of type 'char *'
-  745 | HAL_StatusTypeDef HAL_UART_Transmit(UART_HandleTypeDef *huart, const uint8_t *pData, uint16_t Size, uint32_t Timeout);
-      |                                                                ~~~~~~~~~~~~~~~^~~~~
-../Core/Src/main.c: In function 'Medium_Task':
-../Core/Src/main.c:256:24: warning: pointer targets in initialization of 'uint8_t *' {aka 'unsigned char *'} from 'char *' differ in signedness [-Wpointer-sign]
-  256 |   uint8_t *strtosend = "IN MPT...........................\n";
-      |                        ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-../Core/Src/main.c:260:32: warning: pointer targets in passing argument 2 of 'HAL_UART_Transmit' differ in signedness [-Wpointer-sign]
-  260 |     HAL_UART_Transmit(&huart2, str, strlen(str), HAL_MAX_DELAY);
-      |                                ^~~
-      |                                |
-      |                                char *
-../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_uart.h:745:79: note: expected 'const uint8_t *' {aka 'const unsigned char *'} but argument is of type 'char *'
-  745 | HAL_StatusTypeDef HAL_UART_Transmit(UART_HandleTypeDef *huart, const uint8_t *pData, uint16_t Size, uint32_t Timeout);
-      |                                                                ~~~~~~~~~~~~~~~^~~~~
-../Core/Src/main.c:262:15: warning: pointer targets in passing argument 1 of 'Send_UART' differ in signedness [-Wpointer-sign]
-  262 |     Send_UART(strtosend);
-      |               ^~~~~~~~~
-      |               |
-      |               uint8_t * {aka unsigned char *}
-../Core/Src/main.c:75:22: note: expected 'char *' but argument is of type 'uint8_t *' {aka 'unsigned char *'}
-   75 | void Send_UART(char *str)
-      |                ~~~~~~^~~
-../Core/Src/main.c:265:32: warning: pointer targets in passing argument 2 of 'HAL_UART_Transmit' differ in signedness [-Wpointer-sign]
-  265 |     HAL_UART_Transmit(&huart2, str2, strlen(str2), HAL_MAX_DELAY);
-      |                                ^~~~
-      |                                |
-      |                                char *
-../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_uart.h:745:79: note: expected 'const uint8_t *' {aka 'const unsigned char *'} but argument is of type 'char *'
-  745 | HAL_StatusTypeDef HAL_UART_Transmit(UART_HandleTypeDef *huart, const uint8_t *pData, uint16_t Size, uint32_t Timeout);
-      |                                                                ~~~~~~~~~~~~~~~^~~~~
-arm-none-eabi-gcc -o "007Mutex.elf" @"objects.list"   -mcpu=cortex-m4 -T"D:\freertos\rtos_workspace\007Mutex\STM32F407VGTX_FLASH.ld" --specs=nosys.specs -Wl,-Map="007Mutex.map" -Wl,--gc-sections -static --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
-Finished building target: 007Mutex.elf
+arm-none-eabi-gcc -o "003Example_2.elf" @"objects.list"   -mcpu=cortex-m4 -T"D:\freertos\rtos_workspace\003Example_2\STM32F407VGTX_FLASH.ld" --specs=nosys.specs -Wl,-Map="003Example_2.map" -Wl,--gc-sections -static --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
+Finished building target: 003Example_2.elf
  
-arm-none-eabi-size  007Mutex.elf 
-arm-none-eabi-objdump -h -S 007Mutex.elf  > "007Mutex.list"
+arm-none-eabi-size  003Example_2.elf 
+arm-none-eabi-objdump -h -S 003Example_2.elf  > "003Example_2.list"
    text	   data	    bss	    dec	    hex	filename
-  19124	     16	  18024	  37164	   912c	007Mutex.elf
+  21632	     16	  18024	  39672	   9af8	003Example_2.elf
 Finished building: default.size.stdout
  
-Finished building: 007Mutex.list
+Finished building: 003Example_2.list
  
-16:51:25 **** Incremental Build of configuration Debug for project 007Mutex ****
+08:12:41 **** Incremental Build of configuration Debug for project 003Example_2 ****
 make -j8 all 
-arm-none-eabi-gcc "../Core/Src/main.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32F407xx -c -I../Core/Inc -I../Drivers/STM32F4xx_HAL_Driver/Inc -I../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32F4xx/Include -I../Drivers/CMSIS/Include -I../Middlewares/Third_Party/FreeRTOS/Source/include -I../Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS -I../Middlewares/Third_Party/FreeRTOS/Source/portable/GCC/ARM_CM4F -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Core/Src/main.d" -MT"Core/Src/main.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Core/Src/main.o"
-../Core/Src/main.c: In function 'Send_UART':
-../Core/Src/main.c:78:30: warning: pointer targets in passing argument 2 of 'HAL_UART_Transmit' differ in signedness [-Wpointer-sign]
-   78 |   HAL_UART_Transmit(&huart2, str, strlen(str), HAL_MAX_DELAY);
-      |                              ^~~
-      |                              |
-      |                              char *
-In file included from ../Core/Inc/stm32f4xx_hal_conf.h:411,
-                 from ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal.h:29,
-                 from ../Core/Inc/main.h:30,
-                 from ../Core/Src/main.c:20:
-../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_uart.h:745:79: note: expected 'const uint8_t *' {aka 'const unsigned char *'} but argument is of type 'char *'
-  745 | HAL_StatusTypeDef HAL_UART_Transmit(UART_HandleTypeDef *huart, const uint8_t *pData, uint16_t Size, uint32_t Timeout);
-      |                                                                ~~~~~~~~~~~~~~~^~~~~
-../Core/Src/main.c: In function 'main':
-../Core/Src/main.c:118:32: warning: pointer targets in passing argument 2 of 'HAL_UART_Transmit' differ in signedness [-Wpointer-sign]
-  118 |     HAL_UART_Transmit(&huart2, "Mutex created\n\n", 15, 1000);
-      |                                ^~~~~~~~~~~~~~~~~~~
-      |                                |
-      |                                char *
-../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_uart.h:745:79: note: expected 'const uint8_t *' {aka 'const unsigned char *'} but argument is of type 'char *'
-  745 | HAL_StatusTypeDef HAL_UART_Transmit(UART_HandleTypeDef *huart, const uint8_t *pData, uint16_t Size, uint32_t Timeout);
-      |                                                                ~~~~~~~~~~~~~~~^~~~~
-../Core/Src/main.c: In function 'High_Task':
-../Core/Src/main.c:239:24: warning: pointer targets in initialization of 'uint8_t *' {aka 'unsigned char *'} from 'char *' differ in signedness [-Wpointer-sign]
-  239 |   uint8_t *strtosend = "IN HPT--------------------------\n";
-      |                        ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-../Core/Src/main.c:243:32: warning: pointer targets in passing argument 2 of 'HAL_UART_Transmit' differ in signedness [-Wpointer-sign]
-  243 |     HAL_UART_Transmit(&huart2, str, strlen(str), HAL_MAX_DELAY);
-      |                                ^~~
-      |                                |
-      |                                char *
-../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_uart.h:745:79: note: expected 'const uint8_t *' {aka 'const unsigned char *'} but argument is of type 'char *'
-  745 | HAL_StatusTypeDef HAL_UART_Transmit(UART_HandleTypeDef *huart, const uint8_t *pData, uint16_t Size, uint32_t Timeout);
-      |                                                                ~~~~~~~~~~~~~~~^~~~~
-../Core/Src/main.c:245:15: warning: pointer targets in passing argument 1 of 'Send_UART' differ in signedness [-Wpointer-sign]
-  245 |     Send_UART(strtosend);
-      |               ^~~~~~~~~
-      |               |
-      |               uint8_t * {aka unsigned char *}
-../Core/Src/main.c:75:22: note: expected 'char *' but argument is of type 'uint8_t *' {aka 'unsigned char *'}
-   75 | void Send_UART(char *str)
-      |                ~~~~~~^~~
-../Core/Src/main.c:248:32: warning: pointer targets in passing argument 2 of 'HAL_UART_Transmit' differ in signedness [-Wpointer-sign]
-  248 |     HAL_UART_Transmit(&huart2, str2, strlen(str2), HAL_MAX_DELAY);
-      |                                ^~~~
-      |                                |
-      |                                char *
-../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_uart.h:745:79: note: expected 'const uint8_t *' {aka 'const unsigned char *'} but argument is of type 'char *'
-  745 | HAL_StatusTypeDef HAL_UART_Transmit(UART_HandleTypeDef *huart, const uint8_t *pData, uint16_t Size, uint32_t Timeout);
-      |                                                                ~~~~~~~~~~~~~~~^~~~~
-../Core/Src/main.c: In function 'Medium_Task':
-../Core/Src/main.c:256:24: warning: pointer targets in initialization of 'uint8_t *' {aka 'unsigned char *'} from 'char *' differ in signedness [-Wpointer-sign]
-  256 |   uint8_t *strtosend = "IN MPT...........................\n";
-      |                        ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-../Core/Src/main.c:260:32: warning: pointer targets in passing argument 2 of 'HAL_UART_Transmit' differ in signedness [-Wpointer-sign]
-  260 |     HAL_UART_Transmit(&huart2, str, strlen(str), HAL_MAX_DELAY);
-      |                                ^~~
-      |                                |
-      |                                char *
-../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_uart.h:745:79: note: expected 'const uint8_t *' {aka 'const unsigned char *'} but argument is of type 'char *'
-  745 | HAL_StatusTypeDef HAL_UART_Transmit(UART_HandleTypeDef *huart, const uint8_t *pData, uint16_t Size, uint32_t Timeout);
-      |                                                                ~~~~~~~~~~~~~~~^~~~~
-../Core/Src/main.c:262:15: warning: pointer targets in passing argument 1 of 'Send_UART' differ in signedness [-Wpointer-sign]
-  262 |     Send_UART(strtosend);
-      |               ^~~~~~~~~
-      |               |
-      |               uint8_t * {aka unsigned char *}
-../Core/Src/main.c:75:22: note: expected 'char *' but argument is of type 'uint8_t *' {aka 'unsigned char *'}
-   75 | void Send_UART(char *str)
-      |                ~~~~~~^~~
-../Core/Src/main.c:265:32: warning: pointer targets in passing argument 2 of 'HAL_UART_Transmit' differ in signedness [-Wpointer-sign]
-  265 |     HAL_UART_Transmit(&huart2, str2, strlen(str2), HAL_MAX_DELAY);
-      |                                ^~~~
-      |                                |
-      |                                char *
-../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_uart.h:745:79: note: expected 'const uint8_t *' {aka 'const unsigned char *'} but argument is of type 'char *'
-  745 | HAL_StatusTypeDef HAL_UART_Transmit(UART_HandleTypeDef *huart, const uint8_t *pData, uint16_t Size, uint32_t Timeout);
-      |                                                                ~~~~~~~~~~~~~~~^~~~~
-arm-none-eabi-gcc -o "007Mutex.elf" @"objects.list"   -mcpu=cortex-m4 -T"D:\freertos\rtos_workspace\007Mutex\STM32F407VGTX_FLASH.ld" --specs=nosys.specs -Wl,-Map="007Mutex.map" -Wl,--gc-sections -static --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
-Finished building target: 007Mutex.elf
- 
-arm-none-eabi-size  007Mutex.elf 
-arm-none-eabi-objdump -h -S 007Mutex.elf  > "007Mutex.list"
+arm-none-eabi-size  003Example_2.elf 
    text	   data	    bss	    dec	    hex	filename
-  19124	     16	  18024	  37164	   912c	007Mutex.elf
+  21632	     16	  18024	  39672	   9af8	003Example_2.elf
 Finished building: default.size.stdout
  
-Finished building: 007Mutex.list
- 
-16:55:30 **** Build of configuration Debug for project 008SemaphoreBinary_Mutex ****
+08:13:44 **** Incremental Build of configuration Debug for project 003Example_2 ****
 make -j8 all 
-arm-none-eabi-size  008SemaphoreBinary_Mutex.elf 
+arm-none-eabi-size  003Example_2.elf 
    text	   data	    bss	    dec	    hex	filename
-  19368	     16	  18032	  37416	   9228	008SemaphoreBinary_Mutex.elf
-Finished building: default.size.stdout
- 
-17:00:04 **** Incremental Build of configuration Debug for project 008SemaphoreBinary_Mutex ****
-make -j8 all 
-arm-none-eabi-size  008SemaphoreBinary_Mutex.elf 
-   text	   data	    bss	    dec	    hex	filename
-  19368	     16	  18032	  37416	   9228	008SemaphoreBinary_Mutex.elf
+  21632	     16	  18024	  39672	   9af8	003Example_2.elf
 Finished building: default.size.stdout
  

@@ -38,34 +38,34 @@ $(wildcard ../makefile.init) \
 $(wildcard ../makefile.targets) \
 
 
-BUILD_ARTIFACT_NAME := 003-2Example_2
+BUILD_ARTIFACT_NAME := 003Example_2
 BUILD_ARTIFACT_EXTENSION := elf
 BUILD_ARTIFACT_PREFIX :=
 BUILD_ARTIFACT := $(BUILD_ARTIFACT_PREFIX)$(BUILD_ARTIFACT_NAME)$(if $(BUILD_ARTIFACT_EXTENSION),.$(BUILD_ARTIFACT_EXTENSION),)
 
 # Add inputs and outputs from these tool invocations to the build variables 
 EXECUTABLES += \
-003-2Example_2.elf \
+003Example_2.elf \
 
 MAP_FILES += \
-003-2Example_2.map \
+003Example_2.map \
 
 SIZE_OUTPUT += \
 default.size.stdout \
 
 OBJDUMP_LIST += \
-003-2Example_2.list \
+003Example_2.list \
 
 
 # All Target
 all: main-build
 
 # Main-build Target
-main-build: 003-2Example_2.elf secondary-outputs
+main-build: 003Example_2.elf secondary-outputs
 
 # Tool invocations
-003-2Example_2.elf 003-2Example_2.map: $(OBJS) $(USER_OBJS) D:\freertos\rtos_workspace\003-2Example_2\STM32F407VGTX_FLASH.ld makefile objects.list $(OPTIONAL_TOOL_DEPS)
-	arm-none-eabi-gcc -o "003-2Example_2.elf" @"objects.list" $(USER_OBJS) $(LIBS) -mcpu=cortex-m4 -T"D:\freertos\rtos_workspace\003-2Example_2\STM32F407VGTX_FLASH.ld" --specs=nosys.specs -Wl,-Map="003-2Example_2.map" -Wl,--gc-sections -static --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
+003Example_2.elf 003Example_2.map: $(OBJS) $(USER_OBJS) D:\freertos\rtos_workspace\003Example_2\STM32F407VGTX_FLASH.ld makefile objects.list $(OPTIONAL_TOOL_DEPS)
+	arm-none-eabi-gcc -o "003Example_2.elf" @"objects.list" $(USER_OBJS) $(LIBS) -mcpu=cortex-m4 -T"D:\freertos\rtos_workspace\003Example_2\STM32F407VGTX_FLASH.ld" --specs=nosys.specs -Wl,-Map="003Example_2.map" -Wl,--gc-sections -static --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
 	@echo 'Finished building target: $@'
 	@echo ' '
 
@@ -74,14 +74,14 @@ default.size.stdout: $(EXECUTABLES) makefile objects.list $(OPTIONAL_TOOL_DEPS)
 	@echo 'Finished building: $@'
 	@echo ' '
 
-003-2Example_2.list: $(EXECUTABLES) makefile objects.list $(OPTIONAL_TOOL_DEPS)
-	arm-none-eabi-objdump -h -S $(EXECUTABLES) > "003-2Example_2.list"
+003Example_2.list: $(EXECUTABLES) makefile objects.list $(OPTIONAL_TOOL_DEPS)
+	arm-none-eabi-objdump -h -S $(EXECUTABLES) > "003Example_2.list"
 	@echo 'Finished building: $@'
 	@echo ' '
 
 # Other Targets
 clean:
-	-$(RM) 003-2Example_2.elf 003-2Example_2.list 003-2Example_2.map default.size.stdout
+	-$(RM) 003Example_2.elf 003Example_2.list 003Example_2.map default.size.stdout
 	-@echo ' '
 
 secondary-outputs: $(SIZE_OUTPUT) $(OBJDUMP_LIST)

@@ -68,11 +68,13 @@ static void MX_USART2_UART_Init(void);
 /* Private user code ---------------------------------------------------------*/
 /* USER CODE BEGIN 0 */
 TaskHandle_t TaskHigh_Handler;
+TaskHandle_t Medium_Handler;
 TaskHandle_t TaskLow_Handler;
 
 SemaphoreHandle_t Semaphore_Binary;
 
 void TaskHigh(void *argument);
+void TaskNormal(void *argument);
 void TaskLow(void *argument);
 
 /* USER CODE END 0 */
@@ -120,7 +122,8 @@ int main(void)
     xSemaphoreGive(Semaphore_Binary);
   }
 
-  xTaskCreate(TaskHigh, "High-Task", 128, NULL, 1, &TaskHigh_Handler);
+  xTaskCreate(TaskHigh, "High-Task", 128, NULL, 3, &TaskHigh_Handler);
+  xTaskCreate(TaskNormal, "Normal-Task", 128, NULL, 2, &Medium_Handler);
   xTaskCreate(TaskLow, "Low-Task", 128, NULL, 1, &TaskLow_Handler);
 
   vTaskStartScheduler();
@@ -252,21 +255,41 @@ void TaskHigh(void *argument)
   }
 }
 
-void TaskLow(void *argument)
+
+void TaskNormal(void *argument){
+	while (1)
+	  {
+	    char *str1 = "Entered NormalTask\n";
+	    HAL_UART_Transmit(&huart2, (uint8_t *)str1, strlen(str1), 100);
+
+	    char *str2 = "Leaving NormalTask\n\n";
+	    HAL_UART_Transmit(&huart2, (uint8_t *)str2, strlen(str2), 100);
+	    vTaskDelay(1000);
+	  }
+
+
+}
+
+void TaskLow(void *pvParematers)
 {
   while (1)
   {
-    char *str = "Enter Low Task\n";
-    HAL_UART_Transmit(&huart2, (uint8_t *)str, strlen(str), 100);
-
-    char *str2 = "Semaphore acquired by Low_Task\n";
-    HAL_UART_Transmit(&huart2, (uint8_t *)str2, strlen(str2), 100);
-
-    xSemaphoreTake(Semaphore_Binary, portMAX_DELAY);
-
-    char *str1 = "Leave and release Low Task\n\n";
+    char *str1 = "Entered LowTask and waiting for semaphore\n";
     HAL_UART_Transmit(&huart2, (uint8_t *)str1, strlen(str1), 100);
-    xSemaphoreGive(Semaphore_Binary);
+
+    if(HAL_GPIO_ReadPin(GPIOA, GPIO_PIN_0) == GPIO_PIN_SET) {
+    	if(xSemaphoreTake(Semaphore_Binary, portMAX_DELAY) == pdTRUE){
+    		char *str4 = "Button Press and Semaphore acquired by LowTask\n";
+    		HAL_UART_Transmit(&huart2, (uint8_t*)str4, strlen(str4), 100);
+    	}
+    }
+    else {
+		char *str2 = "Leaving LowTask and releasing semaphore\n\n";
+		HAL_UART_Transmit(&huart2, (uint8_t *)str2, strlen(str2), 100);
+		xSemaphoreGive(Semaphore_Binary);
+
+    }
+
     vTaskDelay(1000);
   }
 }
