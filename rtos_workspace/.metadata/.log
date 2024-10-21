@@ -4434,3 +4434,193 @@ java.io.FileNotFoundException: D:\freertos\rtos_workspace\003Example_2\Debug\003
 	at org.eclipse.debug.internal.ui.DebugUIPlugin.buildAndLaunch(DebugUIPlugin.java:1040)
 	at org.eclipse.debug.internal.ui.DebugUIPlugin$1.run(DebugUIPlugin.java:1243)
 	at org.eclipse.core.internal.jobs.Worker.run(Worker.java:63)
+!SESSION 2024-10-21 16:19:31.109 -----------------------------------------------
+eclipse.buildId=Version 1.16.0
+java.version=17.0.11
+java.vendor=Eclipse Adoptium
+BootLoader constants: OS=win32, ARCH=x86_64, WS=win32, NL=en_US
+Command-line arguments:  -os win32 -ws win32 -arch x86_64
+
+!ENTRY com.st.stm32cube.ide.mcu.informationcenter 4 4 2024-10-21 16:20:17.739
+!MESSAGE CubeMX plugin appears to be active, Log4j initialization might be too late.
+
+!ENTRY com.st.stm32cube.ide.mcu.informationcenter 1 1 2024-10-21 16:20:17.754
+!MESSAGE Log4j2 initialized with config file D:\freertos\rtos_workspace\.metadata\.log4j2.xml
+
+!ENTRY com.st.stm32cube.ide.mcu.ide 1 1 2024-10-21 16:21:06.553
+!MESSAGE Started RMI Server, listening on port 41337
+
+!ENTRY org.eclipse.cdt.core 1 0 2024-10-21 16:21:44.860
+!MESSAGE Indexed '#1Task' (0 sources, 0 headers) in 0.002 sec: 0 declarations; 0 references; 0 unresolved inclusions; 0 syntax errors; 0 unresolved names (0%)
+
+!ENTRY org.eclipse.cdt.core 1 0 2024-10-21 16:22:32.528
+!MESSAGE Indexed '#2TaskOperation' (0 sources, 0 headers) in 0.001 sec: 0 declarations; 0 references; 0 unresolved inclusions; 0 syntax errors; 0 unresolved names (0%)
+
+!ENTRY org.eclipse.cdt.core 1 0 2024-10-21 16:22:59.444
+!MESSAGE Indexed '#3SemaBinary' (0 sources, 0 headers) in 0 sec: 0 declarations; 0 references; 0 unresolved inclusions; 0 syntax errors; 0 unresolved names (0%)
+
+!ENTRY org.eclipse.cdt.core 1 0 2024-10-21 16:23:22.443
+!MESSAGE Indexed '#4SemaCounting' (0 sources, 0 headers) in 0.001 sec: 0 declarations; 0 references; 0 unresolved inclusions; 0 syntax errors; 0 unresolved names (0%)
+
+!ENTRY org.eclipse.cdt.core 1 0 2024-10-21 16:24:45.016
+!MESSAGE Indexed '#3.1SemaBinary_Simple' (34 sources, 144 headers) in 6.38 sec: 15,063 declarations; 69,507 references; 1 unresolved inclusions; 202 syntax errors; 241 unresolved names (0.28%)
+
+!ENTRY org.eclipse.cdt.core 1 0 2024-10-21 16:25:01.352
+!MESSAGE Indexed '#3SemaBinary_Simple' (0 sources, 0 headers) in 0 sec: 0 declarations; 0 references; 0 unresolved inclusions; 0 syntax errors; 0 unresolved names (0%)
+
+!ENTRY org.eclipse.cdt.core 1 0 2024-10-21 16:25:20.850
+!MESSAGE Indexed '#3.1SemaBinary_Inversion' (0 sources, 0 headers) in 0 sec: 0 declarations; 0 references; 0 unresolved inclusions; 0 syntax errors; 0 unresolved names (0%)
+
+!ENTRY org.eclipse.cdt.core 1 0 2024-10-21 16:25:35.407
+!MESSAGE Indexed '#3SemaBinary_Inversion' (0 sources, 0 headers) in 0 sec: 0 declarations; 0 references; 0 unresolved inclusions; 0 syntax errors; 0 unresolved names (0%)
+
+!ENTRY org.eclipse.cdt.core 1 0 2024-10-21 16:26:47.755
+!MESSAGE Indexed '#4SemaCounting_Simple' (0 sources, 0 headers) in 0 sec: 0 declarations; 0 references; 0 unresolved inclusions; 0 syntax errors; 0 unresolved names (0%)
+
+!ENTRY org.eclipse.cdt.core 1 0 2024-10-21 16:27:11.455
+!MESSAGE Indexed '#4SemaCounting_Interrupt' (0 sources, 0 headers) in 0 sec: 0 declarations; 0 references; 0 unresolved inclusions; 0 syntax errors; 0 unresolved names (0%)
+
+!ENTRY org.eclipse.cdt.core 1 0 2024-10-21 16:27:40.080
+!MESSAGE Indexed '5_QueueSimple' (34 sources, 144 headers) in 2.4 sec: 15,071 declarations; 69,518 references; 1 unresolved inclusions; 202 syntax errors; 241 unresolved names (0.28%)
+
+!ENTRY org.eclipse.cdt.core 1 0 2024-10-21 16:28:01.945
+!MESSAGE Indexed '05.QueueSimple' (0 sources, 0 headers) in 0.001 sec: 0 declarations; 0 references; 0 unresolved inclusions; 0 syntax errors; 0 unresolved names (0%)
+
+!ENTRY org.eclipse.cdt.core 1 0 2024-10-21 16:28:24.145
+!MESSAGE Indexed '05_QueueSimple' (34 sources, 144 headers) in 2.02 sec: 15,071 declarations; 69,518 references; 1 unresolved inclusions; 202 syntax errors; 241 unresolved names (0.28%)
+
+!ENTRY org.eclipse.cdt.core 1 0 2024-10-21 16:28:31.571
+!MESSAGE Indexed '01_Task' (0 sources, 0 headers) in 0.001 sec: 0 declarations; 0 references; 0 unresolved inclusions; 0 syntax errors; 0 unresolved names (0%)
+
+!ENTRY org.eclipse.cdt.core 1 0 2024-10-21 16:28:49.787
+!MESSAGE Indexed '02_TaskOperation' (0 sources, 0 headers) in 0 sec: 0 declarations; 0 references; 0 unresolved inclusions; 0 syntax errors; 0 unresolved names (0%)
+
+!ENTRY org.eclipse.cdt.core 1 0 2024-10-21 16:29:04.319
+!MESSAGE Indexed '03_SemaBinary' (0 sources, 0 headers) in 0 sec: 0 declarations; 0 references; 0 unresolved inclusions; 0 syntax errors; 0 unresolved names (0%)
+
+!ENTRY org.eclipse.cdt.core 1 0 2024-10-21 16:29:23.942
+!MESSAGE Indexed '03_SemaBinary_Inversion' (0 sources, 0 headers) in 0 sec: 0 declarations; 0 references; 0 unresolved inclusions; 0 syntax errors; 0 unresolved names (0%)
+
+!ENTRY org.eclipse.cdt.core 1 0 2024-10-21 16:29:39.793
+!MESSAGE Indexed '03_SemaBinary_Simple' (34 sources, 144 headers) in 2.01 sec: 15,063 declarations; 69,507 references; 1 unresolved inclusions; 202 syntax errors; 241 unresolved names (0.28%)
+
+!ENTRY org.eclipse.cdt.core 1 0 2024-10-21 16:29:46.020
+!MESSAGE Indexed '04_SemaCounting' (0 sources, 0 headers) in 0 sec: 0 declarations; 0 references; 0 unresolved inclusions; 0 syntax errors; 0 unresolved names (0%)
+
+!ENTRY org.eclipse.cdt.core 1 0 2024-10-21 16:29:57.950
+!MESSAGE Indexed '04_SemaCounting_Interrupt' (0 sources, 0 headers) in 0 sec: 0 declarations; 0 references; 0 unresolved inclusions; 0 syntax errors; 0 unresolved names (0%)
+
+!ENTRY org.eclipse.cdt.core 1 0 2024-10-21 16:30:08.301
+!MESSAGE Indexed '04_SemaCounting_Simple' (34 sources, 144 headers) in 2.02 sec: 15,095 declarations; 69,741 references; 1 unresolved inclusions; 202 syntax errors; 241 unresolved names (0.28%)
+
+!ENTRY org.eclipse.cdt.core 1 0 2024-10-21 16:30:27.281
+!MESSAGE Indexed '06_Queue_Structured' (33 sources, 144 headers) in 2.03 sec: 14,384 declarations; 53,135 references; 1 unresolved inclusions; 202 syntax errors; 241 unresolved names (0.36%)
+
+!ENTRY org.eclipse.cdt.core 1 0 2024-10-21 16:30:41.148
+!MESSAGE Indexed '07_Mutex' (0 sources, 0 headers) in 0 sec: 0 declarations; 0 references; 0 unresolved inclusions; 0 syntax errors; 0 unresolved names (0%)
+
+!ENTRY org.eclipse.cdt.core 1 0 2024-10-21 16:31:05.758
+!MESSAGE Indexed '08_Inversion_Inheritance' (0 sources, 0 headers) in 0.002 sec: 0 declarations; 0 references; 0 unresolved inclusions; 0 syntax errors; 0 unresolved names (0%)
+
+!ENTRY org.eclipse.cdt.core 1 0 2024-10-21 16:31:26.121
+!MESSAGE Indexed '09_SoftwareTimer' (34 sources, 105 headers) in 1.39 sec: 8,554 declarations; 50,225 references; 0 unresolved inclusions; 1 syntax errors; 3 unresolved names (0.0051%)
+
+!ENTRY org.eclipse.cdt.core 1 0 2024-10-21 16:31:39.974
+!MESSAGE Indexed '10_SoftwareTimer' (0 sources, 0 headers) in 0.001 sec: 0 declarations; 0 references; 0 unresolved inclusions; 0 syntax errors; 0 unresolved names (0%)
+
+!ENTRY org.eclipse.cdt.core 4 0 2024-10-21 16:33:17.885
+!MESSAGE Launch attempt in non existent working directory "D:\freertos\rtos_workspace\006Queue_Structured\Debug"
+!STACK 0
+java.lang.Exception
+	at org.eclipse.cdt.core.CCorePlugin.logStackTrace(CCorePlugin.java:1556)
+	at org.eclipse.cdt.core.CommandLauncher.execute(CommandLauncher.java:184)
+	at org.eclipse.cdt.core.CommandLauncherManager$CommandLauncherWrapper.execute(CommandLauncherManager.java:146)
+	at org.eclipse.cdt.internal.core.BuildRunnerHelper.build(BuildRunnerHelper.java:274)
+	at org.eclipse.cdt.managedbuilder.core.ExternalBuildRunner.invokeExternalBuild(ExternalBuildRunner.java:140)
+	at org.eclipse.cdt.managedbuilder.core.ExternalBuildRunner.invokeBuild(ExternalBuildRunner.java:73)
+	at com.st.stm32cube.ide.mcu.toolchain.armnone.setup.BuildRunner.invokeBuild(BuildRunner.java:81)
+	at org.eclipse.cdt.managedbuilder.internal.core.CommonBuilder.performExternalClean(CommonBuilder.java:1170)
+	at org.eclipse.cdt.managedbuilder.internal.core.CommonBuilder.clean(CommonBuilder.java:1111)
+	at org.eclipse.cdt.managedbuilder.internal.core.CommonBuilder.performCleanning(CommonBuilder.java:955)
+	at org.eclipse.cdt.managedbuilder.internal.core.CommonBuilder.performPrebuildGeneration(CommonBuilder.java:881)
+	at org.eclipse.cdt.managedbuilder.internal.core.CommonBuilder.build(CommonBuilder.java:767)
+	at org.eclipse.cdt.managedbuilder.internal.core.CommonBuilder.build(CommonBuilder.java:524)
+	at org.eclipse.cdt.managedbuilder.internal.core.CommonBuilder.build(CommonBuilder.java:466)
+	at org.eclipse.core.internal.events.BuildManager$2.run(BuildManager.java:1079)
+	at org.eclipse.core.runtime.SafeRunner.run(SafeRunner.java:47)
+	at org.eclipse.core.internal.events.BuildManager.basicBuild(BuildManager.java:296)
+	at org.eclipse.core.internal.events.BuildManager.basicBuild(BuildManager.java:352)
+	at org.eclipse.core.internal.events.BuildManager$1.run(BuildManager.java:441)
+	at org.eclipse.core.runtime.SafeRunner.run(SafeRunner.java:47)
+	at org.eclipse.core.internal.events.BuildManager.basicBuild(BuildManager.java:444)
+	at org.eclipse.core.internal.events.BuildManager.basicBuildLoop(BuildManager.java:555)
+	at org.eclipse.core.internal.events.BuildManager.basicBuildLoop(BuildManager.java:503)
+	at org.eclipse.core.internal.events.BuildManager.build(BuildManager.java:585)
+	at org.eclipse.core.internal.resources.Workspace.buildInternal(Workspace.java:594)
+	at org.eclipse.core.internal.resources.Workspace.build(Workspace.java:490)
+	at org.eclipse.ui.actions.BuildAction$1.runInWorkspace(BuildAction.java:291)
+	at org.eclipse.core.internal.resources.InternalWorkspaceJob.run(InternalWorkspaceJob.java:43)
+	at org.eclipse.core.internal.jobs.Worker.run(Worker.java:63)
+
+!ENTRY com.st.stm32cube.common.projectcreation 4 0 2024-10-21 16:33:30.385
+!MESSAGE Project is null
+
+!ENTRY org.eclipse.core.resources 2 2 2024-10-21 16:33:33.586
+!MESSAGE Save operation warnings.
+!SUBENTRY 1 org.eclipse.core.resources 2 234 2024-10-21 16:33:33.586
+!MESSAGE The project description file (.project) for '07_Mutex' was missing.  This file contains important information about the project.  A new project description file has been created, but some information about the project may have been lost.
+!SUBENTRY 1 org.eclipse.core.resources 2 234 2024-10-21 16:33:33.586
+!MESSAGE The project description file (.project) for '09_SoftwareTimer' was missing.  This file contains important information about the project.  A new project description file has been created, but some information about the project may have been lost.
+!SUBENTRY 1 org.eclipse.core.resources 2 234 2024-10-21 16:33:33.586
+!MESSAGE The project description file (.project) for '10_SoftwareTimer' was missing.  This file contains important information about the project.  A new project description file has been created, but some information about the project may have been lost.
+
+!ENTRY org.eclipse.cdt.core 1 0 2024-10-21 16:34:27.556
+!MESSAGE Indexed '009SoftwareTimer' (0 sources, 0 headers) in 0 sec: 0 declarations; 0 references; 0 unresolved inclusions; 0 syntax errors; 0 unresolved names (0%)
+
+!ENTRY org.eclipse.cdt.core 1 0 2024-10-21 16:34:29.817
+!MESSAGE Indexed '06_Queue_Structured' (34 sources, 180 headers) in 2.26 sec: 16,770 declarations; 58,367 references; 1 unresolved inclusions; 202 syntax errors; 241 unresolved names (0.32%)
+
+!ENTRY org.eclipse.cdt.core 1 0 2024-10-21 16:34:29.818
+!MESSAGE Indexed '010SoftwareTimer' (0 sources, 0 headers) in 0.001 sec: 0 declarations; 0 references; 0 unresolved inclusions; 0 syntax errors; 0 unresolved names (0%)
+
+!ENTRY org.eclipse.cdt.core 1 0 2024-10-21 16:34:29.818
+!MESSAGE Indexed '007Mutex' (0 sources, 0 headers) in 0 sec: 0 declarations; 0 references; 0 unresolved inclusions; 0 syntax errors; 0 unresolved names (0%)
+
+!ENTRY org.eclipse.ui.ide 4 4 2024-10-21 16:35:57.966
+!MESSAGE Problems saving workspace
+
+!ENTRY org.eclipse.ui.ide 2 1 2024-10-21 16:35:57.973
+!MESSAGE Problems occurred while trying to save the state of the workbench.
+!SUBENTRY 1 org.eclipse.core.resources 2 234 2024-10-21 16:35:57.973
+!MESSAGE The project description file (.project) for '007Mutex' was missing.  This file contains important information about the project.  A new project description file has been created, but some information about the project may have been lost.
+!SUBENTRY 1 org.eclipse.core.resources 2 234 2024-10-21 16:35:57.973
+!MESSAGE The project description file (.project) for '009SoftwareTimer' was missing.  This file contains important information about the project.  A new project description file has been created, but some information about the project may have been lost.
+!SUBENTRY 1 org.eclipse.core.resources 2 234 2024-10-21 16:35:57.973
+!MESSAGE The project description file (.project) for '010SoftwareTimer' was missing.  This file contains important information about the project.  A new project description file has been created, but some information about the project may have been lost.
+
+!ENTRY org.eclipse.core.resources 2 10035 2024-10-21 16:35:58.257
+!MESSAGE The workspace will exit with unsaved changes in this session.
+!SESSION 2024-10-21 16:35:59.618 -----------------------------------------------
+eclipse.buildId=Version 1.16.0
+java.version=17.0.11
+java.vendor=Eclipse Adoptium
+BootLoader constants: OS=win32, ARCH=x86_64, WS=win32, NL=en_US
+Command-line arguments:  -os win32 -ws win32 -arch x86_64
+
+!ENTRY org.eclipse.core.resources 2 10035 2024-10-21 16:36:16.607
+!MESSAGE The workspace exited with unsaved changes in the previous session; refreshing workspace to recover changes.
+
+!ENTRY com.st.stm32cube.ide.mcu.informationcenter 4 4 2024-10-21 16:36:20.481
+!MESSAGE CubeMX plugin appears to be active, Log4j initialization might be too late.
+
+!ENTRY com.st.stm32cube.ide.mcu.informationcenter 1 1 2024-10-21 16:36:20.482
+!MESSAGE Log4j2 initialized with config file D:\freertos\rtos_workspace\.metadata\.log4j2.xml
+
+!ENTRY com.st.stm32cube.ide.mcu.ide 1 1 2024-10-21 16:36:31.656
+!MESSAGE Started RMI Server, listening on port 41337
+
+!ENTRY org.eclipse.cdt.core 1 0 2024-10-21 16:37:11.637
+!MESSAGE Indexed '07_Mutex' (35 sources, 182 headers) in 6.13 sec: 17,973 declarations; 75,142 references; 1 unresolved inclusions; 202 syntax errors; 241 unresolved names (0.26%)
+
+!ENTRY org.eclipse.cdt.core 1 0 2024-10-21 16:37:11.638
+!MESSAGE Indexed '007Mutex' (0 sources, 0 headers) in 0 sec: 0 declarations; 0 references; 0 unresolved inclusions; 0 syntax errors; 0 unresolved names (0%)
